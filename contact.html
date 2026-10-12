@@ -30,6 +30,17 @@
       content="Have a project in mind? Contact Sam Walker to discuss brand identity, web design and creative support for your business."
     />
     <link rel="icon" type="image/png" href="favicon.png?v=2" />
+    <!-- Preload only the fonts needed at the top of this page. -->
+    <link rel="preload" href="fonts/MangoGrotesque-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="fonts/InterDisplay-Regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="fonts/InterDisplay-Bold.woff2" as="font" type="font/woff2" crossorigin />
+    <!-- Hide splash content before first paint; never leave it hidden indefinitely. -->
+    <script>
+      document.documentElement.classList.add("splash-fonts-loading");
+      window.splashFontFallback = setTimeout(() => {
+        document.documentElement.classList.remove("splash-fonts-loading");
+      }, 5000);
+    </script>
     <link rel="stylesheet" href="main.css" />
     <!-- Version-pinned CDN animation libraries -->
     <script

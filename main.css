@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Inter Display";
-  src: url("./fonts/InterDisplay-Regular.ttf") format("truetype");
+  src: url("./fonts/InterDisplay-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -8,7 +8,7 @@
 
 @font-face {
   font-family: "Inter Display";
-  src: url("./fonts/InterDisplay-Italic.ttf") format("truetype");
+  src: url("./fonts/InterDisplay-Italic.woff2") format("woff2");
   font-weight: 400;
   font-style: italic;
   font-display: swap;
@@ -16,7 +16,7 @@
 
 @font-face {
   font-family: "Inter Display";
-  src: url("./fonts/InterDisplay-Bold.ttf") format("truetype");
+  src: url("./fonts/InterDisplay-Bold.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -24,7 +24,7 @@
 
 @font-face {
   font-family: "Inter Display";
-  src: url("./fonts/InterDisplay-BoldItalic.ttf") format("truetype");
+  src: url("./fonts/InterDisplay-BoldItalic.woff2") format("woff2");
   font-weight: 700;
   font-style: italic;
   font-display: swap;
@@ -32,7 +32,7 @@
 
 @font-face {
   font-family: "Mango Grotesque";
-  src: url("./fonts/MangoGrotesque-SemiBold.ttf") format("truetype");
+  src: url("./fonts/MangoGrotesque-SemiBold.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -40,7 +40,7 @@
 
 @font-face {
   font-family: "Mango Grotesque";
-  src: url("./fonts/MangoGrotesque-SemiBoldItalic.ttf") format("truetype");
+  src: url("./fonts/MangoGrotesque-SemiBoldItalic.woff2") format("woff2");
   font-weight: 600;
   font-style: italic;
   font-display: swap;
@@ -179,6 +179,11 @@ body {
   --scroll-opacity: 0.7;
 
   opacity: calc(var(--load-opacity) * var(--scroll-opacity));
+}
+
+/* Splash font loading: enabled in the page head, released by the animation. */
+.splash-fonts-loading .SplashContentContainer {
+  visibility: hidden;
 }
 
 .SplashSection {

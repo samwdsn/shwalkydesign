@@ -369,7 +369,11 @@ if (carousel && carouselTrack && carouselSlides.length && carouselDots) {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-  await document.fonts.ready;
+  // Wait for fonts, but don't hold the splash indefinitely on a slow connection.
+  await Promise.race([
+    document.fonts.ready,
+    new Promise((resolve) => setTimeout(resolve, 4000)),
+  ]);
 
   /* ==========================================================================
 Color flow background opacity
@@ -446,6 +450,7 @@ Color flow background opacity
     });
 
     const timeline = gsap.timeline({
+      paused: true,
       defaults: {
         ease: "power3.out",
       },
@@ -526,7 +531,16 @@ Color flow background opacity
         0.8,
       );
     }
+
+    // Initial animation states are now set: reveal the container and play.
+    clearTimeout(window.splashFontFallback);
+    document.documentElement.classList.remove("splash-fonts-loading");
+    timeline.play();
   }
+
+  // Safety for pages without the expected splash markup.
+  clearTimeout(window.splashFontFallback);
+  document.documentElement.classList.remove("splash-fonts-loading");
 
   /* ==========================================================================
   Section tab animations
