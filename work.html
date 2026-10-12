@@ -1,0 +1,1254 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio | Sam Walker — Brand &amp; Web Design</title>
+    <meta name="description" content="Explore selected brand identities, websites and creative projects by Sam Walker, a Manchester-based designer creating design that delivers." />
+    <meta name="author" content="Sam Walker" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Sam Walker Design" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:title" content="Portfolio | Sam Walker — Brand &amp; Web Design" />
+    <meta property="og:description" content="Explore selected brand identities, websites and creative projects by Sam Walker, a Manchester-based designer creating design that delivers." />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Portfolio | Sam Walker — Brand &amp; Web Design" />
+    <meta name="twitter:description" content="Explore selected brand identities, websites and creative projects by Sam Walker, a Manchester-based designer creating design that delivers." />
+
+    <link rel="icon" type="image/png" href="favicon.png?v=2" />
+    <link rel="stylesheet" href="main.css" />
+    <!-- Version-pinned CDN animation libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.11/dist/lenis.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js" defer></script>
+
+    <script src="main.js" defer></script>
+  </head>
+  <body class="NewWorkPage">
+    <button
+      class="BurgerButton"
+      type="button"
+      aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="BurgerMenu"
+    >
+      <span class="BurgerLine"></span>
+      <span class="BurgerLine"></span>
+    </button>
+
+    <dialog
+      class="BurgerMenu"
+      id="BurgerMenu"
+      aria-label="Site menu"
+      data-lenis-prevent
+    >
+      <nav class="BurgerNav" aria-label="Site navigation">
+        <a class="BurgerLink" href="index.html">Home</a>
+        <a class="BurgerLink" href="work.html">View Projects</a>
+        <a class="BurgerLink" href="contact.html">Contact Me</a>
+      </nav>
+      <div class="SocialWrapper BurgerSocials">
+        <a
+          class="SocialButton"
+          href="https://instagram.com/samwalkerdesign"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Instagram"
+        >
+          <svg class="SocialLogos" viewBox="0 0 85 85" aria-hidden="true">
+            <use href="SVG/InstagramLogo.svg#Layer_2"></use>
+          </svg>
+        </a>
+        <a
+          class="SocialButton"
+          href="https://www.linkedin.com/in/samwalkerdesign/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn"
+        >
+          <svg class="SocialLogos" viewBox="0 0 80 80" aria-hidden="true">
+            <use href="SVG/LinkedInLogo.svg#Layer_2"></use>
+          </svg>
+        </a>
+        <a
+          class="SocialButton"
+          href="mailto:samwdsn@gmail.com"
+          aria-label="Email"
+        >
+          <svg class="SocialLogos" viewBox="0 0 80 65" aria-hidden="true">
+            <use href="SVG/Email.svg#Layer_2"></use>
+          </svg>
+        </a>
+        <div class="SocialButton">
+          <svg class="SocialLogos" viewBox="0 0 80 80" aria-hidden="true">
+            <use href="SVG/Location.svg#Layer_2"></use>
+          </svg>
+          <span class="FooterMCR">, UK</span>
+        </div>
+      </div>
+    </dialog>
+    <div class="ColorFlowBackground" aria-hidden="true"></div>
+
+    <section class="SplashSection WorkSplashReversed">
+      <div class="SplashImageContainer">
+        <div class="SplashCarouselTrack">
+          <div class="SplashCarouselSlide">
+            <img
+              class="SplashImg"
+              src="images/Splash/Splash_01.jpg"
+              alt="Portfolio project image 1"
+              fetchpriority="high"
+              decoding="async"
+            />
+          </div>
+          <div class="SplashCarouselSlide">
+            <img
+              class="SplashImg"
+              src="images/Splash/Splash_02.jpg"
+              alt="Portfolio project image 2"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <div class="SplashCarouselSlide">
+            <img
+              class="SplashImg"
+              src="images/Splash/Splash_03.jpg"
+              alt="Portfolio project image 3"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <div class="SplashCarouselSlide">
+            <img
+              class="SplashImg"
+              src="images/Splash/Splash_04.jpg"
+              alt="Portfolio project image 4"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <div class="SplashCarouselSlide">
+            <img
+              class="SplashImg"
+              src="images/Splash/Splash_05.jpg"
+              alt="Portfolio project image 5"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <div class="SplashCarouselSlide">
+            <img
+              class="SplashImg"
+              src="images/Splash/Splash_06.jpg"
+              alt="Portfolio project image 6"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <div class="SplashCarouselSlide">
+            <img
+              class="SplashImg"
+              src="images/Splash/Splash_07.jpg"
+              alt="Portfolio project image 7"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+        </div>
+        <div class="SplashCarouselDots" aria-label="Splash image navigation"></div>
+      </div>
+      <div class="SplashContentContainer">
+        <h1>
+          Ambitious<br /><span class="Highlight">design </span>That<br />
+          <em>Delivers.</em>
+        </h1>
+        <p class="WorkSplashCopy">
+          View some of my latest work and design projects I want to shout about.
+          Each project is a journey of strategic thinking, distinctive visual
+          systems and <strong>design built to deliver.</strong>
+        </p>
+      </div>
+    </section>
+
+    <!-- Work projects and category navigation -->
+    <main class="NewWorkLayout" id="new-work-projects">
+      <aside class="NewWorkSidebar">
+        <nav class="NewWorkCategories" aria-label="Project categories">
+          <button
+            class="NewWorkCategory NewWorkReset"
+            type="button"
+            data-category="all"
+            aria-pressed="true"
+            aria-label="Show all projects"
+            title="Show all projects"
+          >
+            &#x21BB;
+          </button>
+          <button
+            class="NewWorkCategory is-active"
+            type="button"
+            data-category="all"
+            aria-pressed="true"
+          >
+            <span class="Dot" aria-hidden="true"></span
+            ><span class="NewWorkCategoryLabel">All<br />Projects</span>
+          </button>
+          <button
+            class="NewWorkCategory"
+            type="button"
+            data-category="branding"
+            aria-pressed="false"
+          >
+            <span class="Dot" aria-hidden="true"></span
+            ><span class="NewWorkCategoryLabel">Brand<br />Design</span>
+          </button>
+          <button
+            class="NewWorkCategory"
+            type="button"
+            data-category="web"
+            aria-pressed="false"
+          >
+            <span class="Dot" aria-hidden="true"></span
+            ><span class="NewWorkCategoryLabel">Web<br />Design</span>
+          </button>
+          <button
+            class="NewWorkCategory"
+            type="button"
+            data-category="other"
+            aria-pressed="false"
+          >
+            <span class="Dot" aria-hidden="true"></span
+            ><span class="NewWorkCategoryLabel">More<br />Work</span>
+          </button>
+        </nav>
+      </aside>
+      <div class="NewWorkProjects">
+        <p
+          class="VisuallyHidden NewWorkStatus"
+          role="status"
+          aria-live="polite"
+        ></p>
+        <!-- Sizzle — branding -->
+<section
+          class="WorkPfol_ProjectSection WorkPfol_LayoutA"
+          id="project-sizzle"
+          data-categories="branding"
+        >
+          <div class="WorkPfol_Content01">
+            <div class="WorkPfol_TitleTagsContainer">
+              <h2>A hot identity with a cult following.</h2>
+              <div class="WorkTagsContainer">
+                <span class="Work_Tags">Branding</span> //
+                <span class="Work_Tags">Packaging</span> //
+                <span class="Work_Tags">Food &amp; Drink</span>
+              </div>
+            </div>
+
+            <div class="WorkPfol_ImageCopyContainerA">
+              <p class="WorkPara_A">
+                <strong class="WorkPfol_BrandName">Sizzle Society</strong> needed an identity that captured the intensity of its hot sauce and the unconventional personality behind its name. The brief was to introduce its flagship blend with a distinctive visual presence, balancing bold expression with clear product communication and room for future flavours.
+              </p>
+
+              <div class="WorkPfol_Image01">
+                <img
+                  src="images/casestudies/PF_Sizzle_01.jpg"
+                  alt="Sizzle project image 1"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="WorkPfol_Content02">
+            <div class="WorkPfol_Image02">
+              <img
+                  src="images/casestudies/PF_Sizzle_02.jpg"
+                  alt="Sizzle project image 2"
+                  loading="lazy"
+                  decoding="async"
+                />
+            </div>
+            <div class="WorkPfol_ContentB">
+              <div class="WorkPfol_ImagesContainerB">
+                <div class="WorkPfol_Image03">
+                  <img
+                  src="images/casestudies/PF_Sizzle_03.jpg"
+                  alt="Sizzle project image 3"
+                  loading="lazy"
+                  decoding="async"
+                />
+                </div>
+                <div class="WorkPfol_Image04">
+                  <img
+                  src="images/casestudies/PF_Sizzle_04.jpg"
+                  alt="Sizzle project image 4"
+                  loading="lazy"
+                  decoding="async"
+                />
+                </div>
+              </div>
+              <div class="WorkPfol_ContentCopyContainer">
+                <h3>Bringing the signature heat.</h3>
+                <p>
+                  I created the logo suite, iconography and wider art direction, then applied the identity to a custom bottle and label design with embossed detailing. A series of 3D product renders brought the packaging to life and explored how the brand could extend into future campaigns.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="WorkPfol_Divider" aria-hidden="true"></div>
+        </section>
+
+        <!-- ChemID — branding -->
+<section
+          class="WorkPfol_ProjectSection WorkPfol_LayoutB"
+          id="project-chemind"
+          data-categories="branding"
+        >
+          <div class="WorkPfol_Content01">
+            <div class="WorkPfol_TitleTagsContainer">
+              <h2>Finding the chemistry behind the industry.</h2>
+              <div class="WorkTagsContainer">
+                <span class="Work_Tags">Branding</span> //
+                <span class="Work_Tags">Art Direction</span> //
+                <span class="Work_Tags">Agency</span>
+              </div>
+            </div>
+
+            <div class="WorkPfol_ImageCopyContainerA">
+              <p class="WorkPara_A">
+                <strong class="WorkPfol_BrandName">Chemistry + Industry</strong> needed a contemporary identity for its approach to operations management. The challenge was to make a complex service feel approachable and credible without relying on familiar corporate styling. The brand needed to speak to growing businesses while expressing the thinking behind its offer.
+              </p>
+
+              <div class="WorkPfol_Image01">
+                <img
+                  src="images/casestudies/PF_ChemInd_01.jpg"
+                  alt="ChemID project image 1"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="WorkPfol_Content02">
+            <div class="WorkPfol_Image02">
+              <img
+                  src="images/casestudies/PF_ChemInd_02.jpg"
+                  alt="ChemID project image 2"
+                  loading="lazy"
+                  decoding="async"
+                />
+            </div>
+            <div class="WorkPfol_ContentB">
+              <div class="WorkPfol_ImagesContainerB">
+                <div class="WorkPfol_Image03">
+                  <img
+                  src="images/casestudies/PF_ChemInd_03.jpg"
+                  alt="ChemID project image 3"
+                  loading="lazy"
+                  decoding="async"
+                />
+                </div>
+                <div class="WorkPfol_Image04">
+                  <img
+                  src="images/casestudies/PF_ChemInd_04.jpg"
+                  alt="ChemID project image 4"
+                  loading="lazy"
+                  decoding="async"
+                />
+                </div>
+              </div>
+              <div class="WorkPfol_ContentCopyContainer">
+                <h3>A bonded visual language.</h3>
+                <p>
+                  I developed the identity around the idea of “the chemistry behind the industry”, using molecular forms to connect the logo suite, iconography and supporting graphics. Brand guidelines established a consistent direction across social content, printed collateral and the website, giving the business a recognisable visual foundation.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="WorkPfol_Divider" aria-hidden="true"></div>
+        </section>
+
+        <!-- Manuka — branding -->
+<section
+          class="WorkPfol_ProjectSection WorkPfol_LayoutA"
+          id="project-manuka"
+          data-categories="branding"
+        >
+          <div class="WorkPfol_Content01">
+            <div class="WorkPfol_TitleTagsContainer">
+              <h2>Natural ingredients at the heart of the identity.</h2>
+              <div class="WorkTagsContainer">
+                <span class="Work_Tags">Branding</span> //
+                <span class="Work_Tags">Packaging</span> //
+                <span class="Work_Tags">Skincare</span>
+              </div>
+            </div>
+
+            <div class="WorkPfol_ImageCopyContainerA">
+              <p class="WorkPara_A">
+                <strong class="WorkPfol_BrandName">Manuka Skin</strong> needed an identity and packaging direction for skincare built around Manuka honey. The brief brought together natural ingredients, sensitive skincare and environmental awareness. The challenge was to communicate those qualities clearly while creating a distinctive presence within a crowded beauty category.
+              </p>
+
+              <div class="WorkPfol_Image01">
+                <img
+                  src="images/casestudies/PF_Manuka_01.jpg"
+                  alt="Manuka project image 1"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="WorkPfol_Content02">
+            <div class="WorkPfol_Image02">
+              <img
+                  src="images/casestudies/PF_Manuka_02.jpg"
+                  alt="Manuka project image 2"
+                  loading="lazy"
+                  decoding="async"
+                />
+            </div>
+            <div class="WorkPfol_ContentB">
+              <div class="WorkPfol_ImagesContainerB">
+                <div class="WorkPfol_Image03">
+                  <img
+                  src="images/casestudies/PF_Manuka_03.jpg"
+                  alt="Manuka project image 3"
+                  loading="lazy"
+                  decoding="async"
+                />
+                </div>
+                <div class="WorkPfol_Image04">
+                  <img
+                  src="images/casestudies/PF_Manuka_04.jpg"
+                  alt="Manuka project image 4"
+                  loading="lazy"
+                  decoding="async"
+                />
+                </div>
+              </div>
+              <div class="WorkPfol_ContentCopyContainer">
+                <h3>From nature to finished product.</h3>
+                <p>
+                  I created the logo, visual direction and packaging system, supported by a pattern inspired by the Manuka flower and honey bee. Applied across the product, retail box and brand materials, the identity combined expressive detail with simple packaging presentation that reflected the brand’s environmental considerations.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="WorkPfol_Divider" aria-hidden="true"></div>
+        </section>
+
+        <!-- AceFace — branding -->
+<section
+          class="WorkPfol_ProjectSection WorkPfol_LayoutB"
+          id="project-af"
+          data-categories="branding"
+        >
+          <div class="WorkPfol_Content01">
+            <div class="WorkPfol_TitleTagsContainer">
+              <h2>Making Gen-Z skincare feel real.</h2>
+              <div class="WorkTagsContainer">
+                <span class="Work_Tags">Branding</span> //
+                <span class="Work_Tags">Packaging</span> //
+                <span class="Work_Tags">Beauty</span>
+              </div>
+            </div>
+
+            <div class="WorkPfol_ImageCopyContainerA">
+              <p class="WorkPara_A">
+                <strong class="WorkPfol_BrandName">Ace Face</strong> needed to turn its existing identity into a convincing vision for a Gen Z skincare range. With limited physical products available, the brand required a prospectus that could communicate its audience, proposed range and creative direction to investors and manufacturing partners before production.
+              </p>
+
+              <div class="WorkPfol_Image01">
+                <img
+                  src="images/casestudies/PF_AF_01.jpg"
+                  alt="AceFace project image 1"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="WorkPfol_Content02">
+            <div class="WorkPfol_Image02">
+              <img
+                  src="images/casestudies/PF_AF_02.jpg"
+                  alt="AceFace project image 2"
+                  loading="lazy"
+                  decoding="async"
+                />
+            </div>
+            <div class="WorkPfol_ContentB">
+              <div class="WorkPfol_ImagesContainerB">
+                <div class="WorkPfol_Image03">
+                  <img
+                  src="images/casestudies/PF_AF_03.jpg"
+                  alt="AceFace project image 3"
+                  loading="lazy"
+                  decoding="async"
+                />
+                </div>
+                <div class="WorkPfol_Image04">
+                  <img
+                  src="images/casestudies/PF_AF_04.jpg"
+                  alt="AceFace project image 4"
+                  loading="lazy"
+                  decoding="async"
+                />
+                </div>
+              </div>
+              <div class="WorkPfol_ContentCopyContainer">
+                <h3>Making the vision clear.</h3>
+                <p>
+                  I developed the prospectus using the existing branding, creating product concepts, social assets and 3D packaging mockups. Together, these materials showed how the identity could work across a coherent range, giving stakeholders a clearer understanding of the proposed products and their position within the beauty market.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="WorkPfol_Divider" aria-hidden="true"></div>
+        </section>
+
+        <!-- Spicymarg — branding -->
+<section
+          class="WorkPfol_ProjectSection WorkPfol_LayoutA"
+          id="project-spicyb"
+          data-categories="branding"
+        >
+          <div class="WorkPfol_Content01">
+            <div class="WorkPfol_TitleTagsContainer">
+              <h2>A creative studio with an extra kick.</h2>
+              <div class="WorkTagsContainer">
+                <span class="Work_Tags">Branding</span> //
+                <span class="Work_Tags">Art Direction</span> //
+                <span class="Work_Tags">Studio</span>
+              </div>
+            </div>
+
+            <div class="WorkPfol_ImageCopyContainerA">
+              <p class="WorkPara_A">
+                <strong class="WorkPfol_BrandName">Spicy Marg Studio</strong> needed an identity that balanced creative credibility with the playful character behind its name. In a market where agencies often look and sound alike, the brief was to create a confident, distinctive brand that could communicate a broad creative offer without becoming generic.
+              </p>
+
+              <div class="WorkPfol_Image01">
+                <img
+                  src="images/casestudies/PF_SpicyB_01.jpg"
+                  alt="Spicymarg project image 1"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="WorkPfol_Content02">
+            <div class="WorkPfol_Image02">
+              <img
+                  src="images/casestudies/PF_SpicyB_02.jpg"
+                  alt="Spicymarg project image 2"
+                  loading="lazy"
+                  decoding="async"
+                />
+            </div>
+            <div class="WorkPfol_ContentB">
+              <div class="WorkPfol_ImagesContainerB">
+                <div class="WorkPfol_Image03">
+                  <img
+                  src="images/casestudies/PF_SpicyB_03.jpg"
+                  alt="Spicymarg project image 3"
+                  loading="lazy"
+                  decoding="async"
+                />
+                </div>
+                <div class="WorkPfol_Image04">
+                  <img
+                  src="images/casestudies/PF_SpicyB_04.jpg"
+                  alt="Spicymarg project image 4"
+                  loading="lazy"
+                  decoding="async"
+                />
+                </div>
+              </div>
+              <div class="WorkPfol_ContentCopyContainer">
+                <h3>Where heat meets sweet.</h3>
+                <p>
+                  I developed the complete brand direction, including the logo, colour palette, typography, imagery and tone of voice. Brand guidelines brought these elements together, while initial social graphics and website applications explored how the identity could retain its irreverent personality across different channels and formats.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="WorkPfol_Divider" aria-hidden="true"></div>
+        </section>
+
+        <!-- Musclefuel Kitchen — branding -->
+<section
+          class="WorkPfol_ProjectSection WorkPfol_LayoutB"
+          id="project-mfk"
+          data-categories="branding"
+        >
+          <div class="WorkPfol_Content01">
+            <div class="WorkPfol_TitleTagsContainer">
+              <h2>High-protein flavour meets bold branding.</h2>
+              <div class="WorkTagsContainer">
+                <span class="Work_Tags">Branding</span> //
+                <span class="Work_Tags">Packaging</span> //
+                <span class="Work_Tags">Food &amp; Drink</span>
+              </div>
+            </div>
+
+            <div class="WorkPfol_ImageCopyContainerA">
+              <p class="WorkPara_A">
+                <strong class="WorkPfol_BrandName">Muscle Fuel Kitchen</strong> needed an identity and packaging system for its flagship range of high-protein pizzas. The designs had to communicate nutritional benefits without losing the appeal of the food itself. The challenge was to feel relevant to gym lovers without resembling conventional sports supplements or restrictive health-food packaging.
+              </p>
+
+              <div class="WorkPfol_Image01">
+                <img
+                  src="images/casestudies/PF_MFK_01.jpg"
+                  alt="Musclefuel Kitchen project image 1"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="WorkPfol_Content02">
+            <div class="WorkPfol_Image02">
+              <img
+                  src="images/casestudies/PF_MFK_02.jpg"
+                  alt="Musclefuel Kitchen project image 2"
+                  loading="lazy"
+                  decoding="async"
+                />
+            </div>
+            <div class="WorkPfol_ContentB">
+              <div class="WorkPfol_ImagesContainerB">
+                <div class="WorkPfol_Image03">
+                  <img
+                  src="images/casestudies/PF_MFK_03.jpg"
+                  alt="Musclefuel Kitchen project image 3"
+                  loading="lazy"
+                  decoding="async"
+                />
+                </div>
+                <div class="WorkPfol_Image04">
+                  <img
+                  src="images/casestudies/PF_MFK_04.jpg"
+                  alt="Musclefuel Kitchen project image 4"
+                  loading="lazy"
+                  decoding="async"
+                />
+                </div>
+              </div>
+              <div class="WorkPfol_ContentCopyContainer">
+                <h3>One identity, distinct flavours.</h3>
+                <p>
+                  I created the logo and wider visual direction before applying the identity across the pizza range. Topping-specific colourways and product graphics gave each variant its own character while keeping the family recognisable. The final brand and packaging visuals brought the nutritional message and food presentation together for handover.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="WorkPfol_Divider" aria-hidden="true"></div>
+        </section>
+
+        <!-- T4 — other -->
+<section
+          class="WorkPfol_ProjectSection WorkPfol_LayoutA"
+          id="project-t4"
+          data-categories="other"
+        >
+          <div class="WorkPfol_Content01">
+            <div class="WorkPfol_TitleTagsContainer">
+              <h2>Creative support for a bubbling brand.</h2>
+              <div class="WorkTagsContainer">
+                <span class="Work_Tags">Campaigns</span> //
+                <span class="Work_Tags">Art Direction</span> //
+                <span class="Work_Tags">Global</span>
+              </div>
+            </div>
+
+            <div class="WorkPfol_ImageCopyContainerA">
+              <p class="WorkPara_A">
+                <strong class="WorkPfol_BrandName">T4 Bubble Tea</strong> needed ongoing creative support for national campaigns and the everyday demands of its UK franchise network. Working directly with the UK marketing director, I helped adapt the global identity for local audiences, balancing planned launches, franchise requests and collaborations across a wide range of formats.
+              </p>
+
+              <div class="WorkPfol_Image01">
+                <img
+                  src="images/casestudies/PF_T4_01.jpg"
+                  alt="T4 project image 1"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="WorkPfol_Content02">
+            <div class="WorkPfol_Image02">
+              <img
+                  src="images/casestudies/PF_T4_02.jpg"
+                  alt="T4 project image 2"
+                  loading="lazy"
+                  decoding="async"
+                />
+            </div>
+            <div class="WorkPfol_ContentB">
+              <div class="WorkPfol_ImagesContainerB">
+                <div class="WorkPfol_Image03">
+                  <img
+                  src="images/casestudies/PF_T4_03.jpg"
+                  alt="T4 project image 3"
+                  loading="lazy"
+                  decoding="async"
+                />
+                </div>
+                <div class="WorkPfol_Image04">
+                  <img
+                  src="images/casestudies/PF_T4_04.jpg"
+                  alt="T4 project image 4"
+                  loading="lazy"
+                  decoding="async"
+                />
+                </div>
+              </div>
+              <div class="WorkPfol_ContentCopyContainer">
+                <h3>Consistency around the world.</h3>
+                <p>
+                  I created campaign key visuals, digital menus, posters, social content, event materials and internal communications. The work also included collaboration assets involving <strong class="WorkPfol_BrandName">Universal Studios</strong>, <strong class="WorkPfol_BrandName">Disney</strong> and <strong class="WorkPfol_BrandName">PepsiCo</strong> for UK and international use, maintaining a recognisable brand presence while responding to different audiences, locations and campaign requirements.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="WorkPfol_Divider" aria-hidden="true"></div>
+        </section>
+
+        <!-- Citrus Twist — other -->
+<section
+          class="WorkPfol_ProjectSection WorkPfol_LayoutB"
+          id="project-ct"
+          data-categories="other"
+        >
+          <div class="WorkPfol_Content01">
+            <div class="WorkPfol_TitleTagsContainer">
+              <h2>A fresh twist for sparkling drinks.</h2>
+              <div class="WorkTagsContainer">
+                <span class="Work_Tags">Packaging</span> //
+                <span class="Work_Tags">Drinks</span> //
+                <span class="Work_Tags">3D Design</span>
+              </div>
+            </div>
+
+            <div class="WorkPfol_ImageCopyContainerA">
+              <p class="WorkPara_A">
+                <strong class="WorkPfol_BrandName">Citrus Twist</strong> was an exploration of how a canned sparkling juice could express freshness and flavour through a bold identity. The concept needed to feel colourful and energetic while remaining recognisable in a crowded drinks category, with a visual direction that could work beyond the can.
+              </p>
+
+              <div class="WorkPfol_Image01">
+                <img
+                  src="images/casestudies/PF_CT_01.jpg"
+                  alt="Citrus Twist project image 1"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="WorkPfol_Content02">
+            <div class="WorkPfol_Image02">
+              <img
+                  src="images/casestudies/PF_CT_02.jpg"
+                  alt="Citrus Twist project image 2"
+                  loading="lazy"
+                  decoding="async"
+                />
+            </div>
+            <div class="WorkPfol_ContentB">
+              <div class="WorkPfol_ImagesContainerB">
+                <div class="WorkPfol_Image03">
+                  <img
+                  src="images/casestudies/PF_CT_03.jpg"
+                  alt="Citrus Twist project image 3"
+                  loading="lazy"
+                  decoding="async"
+                />
+                </div>
+                <div class="WorkPfol_Image04">
+                  <img
+                  src="images/casestudies/PF_CT_04.jpg"
+                  alt="Citrus Twist project image 4"
+                  loading="lazy"
+                  decoding="async"
+                />
+                </div>
+              </div>
+              <div class="WorkPfol_ContentCopyContainer">
+                <h3>Concepts beyond the can.</h3>
+                <p>
+                  I developed the identity and packaging design, then explored their wider application through 3D product renders, campaign graphics and social assets. These applications tested how the concept could hold together across different formats, connecting the product presentation with a broader, expressive brand world.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="WorkPfol_Divider" aria-hidden="true"></div>
+        </section>
+
+        <!-- Chem Ind Web — web -->
+<section
+          class="WorkPfol_ProjectSection WorkPfol_LayoutA"
+          id="project-chemweb"
+          data-categories="web"
+        >
+          <div class="WorkPfol_Content01">
+            <div class="WorkPfol_TitleTagsContainer">
+              <h2>Making ops management easier to understand.</h2>
+              <div class="WorkTagsContainer">
+                <span class="Work_Tags">Web Design</span> //
+                <span class="Work_Tags">UI Design</span> //
+                <span class="Work_Tags">Agency</span>
+              </div>
+            </div>
+
+            <div class="WorkPfol_ImageCopyContainerA">
+              <p class="WorkPara_A">
+                <strong class="WorkPfol_BrandName">Chemistry + Industry</strong> needed a website that translated its operations consultancy offer into a clear digital experience. Building on the brand identity, the design had to communicate the agency’s approach and service packages while retaining the contemporary, credible character established across its wider visual presence.
+              </p>
+
+              <div class="WorkPfol_Image01">
+                <img
+                  src="images/casestudies/PF_ChemWeb_01.jpg"
+                  alt="Chem Ind Web project image 1"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="WorkPfol_Content02">
+            <div class="WorkPfol_Image02">
+              <img
+                  src="images/casestudies/PF_ChemWeb_02.jpg"
+                  alt="Chem Ind Web project image 2"
+                  loading="lazy"
+                  decoding="async"
+                />
+            </div>
+            <div class="WorkPfol_ContentB">
+              <div class="WorkPfol_ImagesContainerB">
+                <div class="WorkPfol_Image03">
+                  <img
+                  src="images/casestudies/PF_ChemWeb_03.jpg"
+                  alt="Chem Ind Web project image 3"
+                  loading="lazy"
+                  decoding="async"
+                />
+                </div>
+                <div class="WorkPfol_Image04">
+                  <img
+                  src="images/casestudies/PF_ChemWeb_04.jpg"
+                  alt="Chem Ind Web project image 4"
+                  loading="lazy"
+                  decoding="async"
+                />
+                </div>
+              </div>
+              <div class="WorkPfol_ContentCopyContainer">
+                <h3>Connecting brand and message.</h3>
+                <p>
+                  I designed the webpages and complete website prototype, extending the molecular-inspired identity into a consistent digital system. The work brought the brand’s visual direction together with its service information, creating a connected presentation of the business and preparing the designs for developer handover.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="WorkPfol_Divider" aria-hidden="true"></div>
+        </section>
+
+        <!-- Angels Web — web -->
+<section
+          class="WorkPfol_ProjectSection WorkPfol_LayoutB"
+          id="project-angels"
+          data-categories="web"
+        >
+          <div class="WorkPfol_Content01">
+            <div class="WorkPfol_TitleTagsContainer">
+              <h2>Giving angels a distinctive platform.</h2>
+              <div class="WorkTagsContainer">
+                <span class="Work_Tags">Web Design</span> //
+                <span class="Work_Tags">Talent</span> //
+                <span class="Work_Tags">Agency</span>
+              </div>
+            </div>
+
+            <div class="WorkPfol_ImageCopyContainerA">
+              <p class="WorkPara_A">
+                <strong class="WorkPfol_BrandName">Angels MGMT</strong> needed a website that gave its talent a distinctive presence and helped introduce them to prospective brand partners. The design combines prominent photography with expressive typography and a soft pink palette, putting the people at the centre while giving the agency a recognisable personality of its own.
+              </p>
+
+              <div class="WorkPfol_Image01">
+                <img
+                  src="images/casestudies/PF_Angels_01.jpg"
+                  alt="Angels Web project image 1"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="WorkPfol_Content02">
+            <div class="WorkPfol_Image02">
+              <img
+                  src="images/casestudies/PF_Angels_02.jpg"
+                  alt="Angels Web project image 2"
+                  loading="lazy"
+                  decoding="async"
+                />
+            </div>
+            <div class="WorkPfol_ContentB">
+              <div class="WorkPfol_ImagesContainerB">
+                <div class="WorkPfol_Image03">
+                  <img
+                  src="images/casestudies/PF_Angels_03.jpg"
+                  alt="Angels Web project image 3"
+                  loading="lazy"
+                  decoding="async"
+                />
+                </div>
+                <div class="WorkPfol_Image04">
+                  <img
+                  src="images/casestudies/PF_Angels_04.jpg"
+                  alt="Angels Web project image 4"
+                  loading="lazy"
+                  decoding="async"
+                />
+                </div>
+              </div>
+              <div class="WorkPfol_ContentCopyContainer">
+                <h3>Creative from the clouds.</h3>
+                <p>
+                  I developed a playful digital direction supported by angel-inspired details and a retro-tech feel. The website used <strong class="WorkPfol_BrandName">Shopify</strong>’s content collections to organise the talent roster, allowing clients to see exactly who they’re working with and how they’d be a good fit, all without the clutter.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="WorkPfol_Divider" aria-hidden="true"></div>
+        </section>
+
+        <!-- Spicymarg Web — web -->
+<section
+          class="WorkPfol_ProjectSection WorkPfol_LayoutA"
+          id="project-spicyweb"
+          data-categories="web"
+        >
+          <div class="WorkPfol_Content01">
+            <div class="WorkPfol_TitleTagsContainer">
+              <h2>Shaking up a personality online.</h2>
+              <div class="WorkTagsContainer">
+                <span class="Work_Tags">Web Design</span> //
+                <span class="Work_Tags">Art Direction</span> //
+                <span class="Work_Tags">Studio</span>
+              </div>
+            </div>
+
+            <div class="WorkPfol_ImageCopyContainerA">
+              <p class="WorkPara_A">
+                <strong class="WorkPfol_BrandName">Spicy Marg Studio</strong> needed a digital presence that carried the confidence and humour of its identity into a clear presentation of its work. The website had to introduce a broad creative offer while giving individual projects enough space to communicate the thinking and visual direction behind them.
+              </p>
+
+              <div class="WorkPfol_Image01">
+                <img
+                  src="images/casestudies/PF_SpicyWeb_01.jpg"
+                  alt="Spicymarg Web project image 1"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="WorkPfol_Content02">
+            <div class="WorkPfol_Image02">
+              <img
+                  src="images/casestudies/PF_SpicyWeb_02.jpg"
+                  alt="Spicymarg Web project image 2"
+                  loading="lazy"
+                  decoding="async"
+                />
+            </div>
+            <div class="WorkPfol_ContentB">
+              <div class="WorkPfol_ImagesContainerB">
+                <div class="WorkPfol_Image03">
+                  <img
+                  src="images/casestudies/PF_SpicyWeb_03.jpg"
+                  alt="Spicymarg Web project image 3"
+                  loading="lazy"
+                  decoding="async"
+                />
+                </div>
+                <div class="WorkPfol_Image04">
+                  <img
+                  src="images/casestudies/PF_SpicyWeb_04.jpg"
+                  alt="Spicymarg Web project image 4"
+                  loading="lazy"
+                  decoding="async"
+                />
+                </div>
+              </div>
+              <div class="WorkPfol_ContentCopyContainer">
+                <h3>The work takes centre stage.</h3>
+                <p>
+                  I designed the website as an extension of the brand system, bringing together its typography, colour, imagery and tone of voice. Project imagery and concise supporting copy introduced the work, while the studio’s playful language connected the portfolio with the wider identity and its invitation to get in touch.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="WorkPfol_Divider" aria-hidden="true"></div>
+        </section>
+
+        <!-- FXN Web — web -->
+<section
+          class="WorkPfol_ProjectSection WorkPfol_LayoutB"
+          id="project-fxn"
+          data-categories="web"
+        >
+          <div class="WorkPfol_Content01">
+            <div class="WorkPfol_TitleTagsContainer">
+              <h2>Trade journaling made smarter with AI.</h2>
+              <div class="WorkTagsContainer">
+                <span class="Work_Tags">Web Design</span> //
+                <span class="Work_Tags">UI Design</span> //
+                <span class="Work_Tags">Software</span>
+              </div>
+            </div>
+
+            <div class="WorkPfol_ImageCopyContainerA">
+              <p class="WorkPara_A">
+                <strong class="WorkPfol_BrandName">FX Notes</strong> needed a website to introduce its AI-assisted trading journal and encourage people to get started. The design pairs a direct product message with a light, spacious presentation, using soft colour and restrained interface details to make the software feel approachable rather than visually overwhelming.
+              </p>
+
+              <div class="WorkPfol_Image01">
+                <img
+                  src="images/casestudies/PF_FXN_01.jpg"
+                  alt="FXN Web project image 1"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="WorkPfol_Content02">
+            <div class="WorkPfol_Image02">
+              <img
+                  src="images/casestudies/PF_FXN_02.jpg"
+                  alt="FXN Web project image 2"
+                  loading="lazy"
+                  decoding="async"
+                />
+            </div>
+            <div class="WorkPfol_ContentB">
+              <div class="WorkPfol_ImagesContainerB">
+                <div class="WorkPfol_Image03">
+                  <img
+                  src="images/casestudies/PF_FXN_03.jpg"
+                  alt="FXN Web project image 3"
+                  loading="lazy"
+                  decoding="async"
+                />
+                </div>
+                <div class="WorkPfol_Image04">
+                  <img
+                  src="images/casestudies/PF_FXN_04.jpg"
+                  alt="FXN Web project image 4"
+                  loading="lazy"
+                  decoding="async"
+                />
+                </div>
+              </div>
+              <div class="WorkPfol_ContentCopyContainer">
+                <h3>Making AI feel more familiar.</h3>
+                <p>
+                  I designed the website and supporting UI kit around pastel gradients, clean typography and a familiar design language associated with leading companies within the AI space. The experience introduces users to the software before they enter the platform, using recognisable interface patterns and clear calls to action to build confidence and guide visitors towards signing up.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="WorkPfol_Divider" aria-hidden="true"></div>
+        </section>
+
+        <!-- UGCA Web — web -->
+<section
+          class="WorkPfol_ProjectSection WorkPfol_LayoutA"
+          id="project-ugc"
+          data-categories="web"
+        >
+          <div class="WorkPfol_Content01">
+            <div class="WorkPfol_TitleTagsContainer">
+              <h2>Putting UGC creators at the centre of the story.</h2>
+              <div class="WorkTagsContainer">
+                <span class="Work_Tags">Web Design</span> //
+                <span class="Work_Tags">Content</span> //
+                <span class="Work_Tags">Agency</span>
+              </div>
+            </div>
+
+            <div class="WorkPfol_ImageCopyContainerA">
+              <p class="WorkPara_A">
+                <strong class="WorkPfol_BrandName">The UGC Agency</strong> needed a website that introduced its creators and explained the value of user-generated content to brands. The creators and their content needed to be front and center, in order to really show off the creativity of user generated content.
+              </p>
+
+              <div class="WorkPfol_Image01">
+                <img
+                  src="images/casestudies/PF_UGC_01.jpg"
+                  alt="UGCA Web project image 1"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="WorkPfol_Content02">
+            <div class="WorkPfol_Image02">
+              <img
+                  src="images/casestudies/PF_UGC_02.jpg"
+                  alt="UGCA Web project image 2"
+                  loading="lazy"
+                  decoding="async"
+                />
+            </div>
+            <div class="WorkPfol_ContentB">
+              <div class="WorkPfol_ImagesContainerB">
+                <div class="WorkPfol_Image03">
+                  <img
+                  src="images/casestudies/PF_UGC_03.jpg"
+                  alt="UGCA Web project image 3"
+                  loading="lazy"
+                  decoding="async"
+                />
+                </div>
+                <div class="WorkPfol_Image04">
+                  <img
+                  src="images/casestudies/PF_UGC_04.jpg"
+                  alt="UGCA Web project image 4"
+                  loading="lazy"
+                  decoding="async"
+                />
+                </div>
+              </div>
+              <div class="WorkPfol_ContentCopyContainer">
+                <h3>From attention to impact.</h3>
+                <p>
+                  The site needed to be welcoming and informative, with case studies, campaign results and reporting data used throughout, to tell a stronger story, demonstrate the impact of the work and help brands understand the value UGC can bring to their marketing.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="WorkPfol_Divider" aria-hidden="true"></div>
+        </section>
+
+        <p class="NewWorkEmpty" hidden>No projects in this category yet.</p>
+      </div>
+    </main>
+
+    <section id="contactfooter-section" class="FooterSection">
+      <div class="FooterMain">
+        <div class="FooterLeft">
+          <div class="FooterGiT">
+            <h2>
+              Contact Me
+              <span class="FooterArrow" aria-hidden="true"></span>
+            </h2>
+          </div>
+          <div class="SocialWrapper">
+            <a
+              class="SocialButton"
+              href="https://instagram.com/samwalkerdesign"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+            >
+              <svg class="SocialLogos" viewBox="0 0 85 85">
+                <use href="SVG/InstagramLogo.svg#Layer_2"></use>
+              </svg>
+            </a>
+
+            <a
+              class="SocialButton"
+              href="https://www.linkedin.com/in/samwalkerdesign/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+            >
+              <svg class="SocialLogos" viewBox="0 0 80 80">
+                <use href="SVG/LinkedInLogo.svg#Layer_2"></use>
+              </svg>
+            </a>
+
+            <a
+              class="SocialButton"
+              href="mailto:samwdsn@gmail.com"
+              aria-label="Email"
+            >
+              <svg class="SocialLogos" viewBox="0 0 80 65">
+                <use href="SVG/Email.svg#Layer_2"></use>
+              </svg>
+            </a>
+
+            <div class="SocialButton">
+              <svg class="SocialLogos" viewBox="0 0 80 80">
+                <use href="SVG/Location.svg#Layer_2"></use>
+              </svg>
+
+              <span class="FooterMCR">, UK</span>
+            </div>
+          </div>
+        </div>
+        <div class="FooterRight">
+          <form
+            target="_blank"
+            action="https://formsubmit.co/samwdsn@gmail.com"
+            method="POST"
+          >
+            <label class="VisuallyHidden" for="contact-name">Name</label>
+            <input
+              id="contact-name"
+              name="name"
+              type="text"
+              class="FormField"
+              placeholder="Name"
+              autocomplete="name"
+              required
+            />
+            <label class="VisuallyHidden" for="contact-email">Email</label>
+            <input
+              id="contact-email"
+              name="email"
+              type="email"
+              class="FormField"
+              placeholder="Email"
+              autocomplete="email"
+              required
+            />
+            <label class="VisuallyHidden" for="contact-message">Message</label>
+            <textarea
+              id="contact-message"
+              name="message"
+              class="FormField"
+              placeholder="Message"
+              required
+            ></textarea>
+            <button class="SendButton" type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
+
+      <p class="FooterTXT">© Sam Walker | All Rights Reserved | 2026</p>
+    </section>
+  </body>
+</html>
