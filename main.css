@@ -182,7 +182,8 @@ body {
 }
 
 /* Splash font loading: enabled in the page head, released by the animation. */
-.splash-fonts-loading .SplashContentContainer {
+.splash-fonts-loading .SplashContentContainer,
+.splash-fonts-loading .SplashImageContainer {
   visibility: hidden;
 }
 
