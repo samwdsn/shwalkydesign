@@ -78,8 +78,6 @@ a {
 html {
   /* Lenis controls smooth scrolling; native smooth restores can cause jumps. */
   scroll-behavior: auto;
-  /* Test: suppress vertical bounce / pull-to-refresh where supported. */
-  overscroll-behavior-y: none;
   background-color: var(--dark);
 }
 
@@ -1261,7 +1259,7 @@ textarea {
 
   .BelowTheFoldSection .TextColumn {
     flex: none;
-    width: 90%;
+    width: 95%;
   }
 
   .PreviewImage {
