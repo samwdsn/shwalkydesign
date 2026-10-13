@@ -76,7 +76,10 @@ a {
 }
 
 html {
-  scroll-behavior: smooth;
+  /* Lenis controls smooth scrolling; native smooth restores can cause jumps. */
+  scroll-behavior: auto;
+  /* Test: suppress vertical bounce / pull-to-refresh where supported. */
+  overscroll-behavior-y: none;
   background-color: var(--dark);
 }
 
@@ -261,7 +264,7 @@ body {
   gap: 8px;
   width: min(80%, 400px);
 
-  opacity: 0.8;
+  opacity: 0.5;
 
   transform: translateX(-50%);
 }
@@ -535,6 +538,7 @@ body:not(.is-touch) .SplashNavItem:hover .SplashNavItem02::after {
    ========================================================================== */
 
 .PortfolioSection {
+  overflow-anchor: none;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -679,6 +683,13 @@ body:not(.is-touch) .ViewProjectButton:hover .ViewProjectArrow {
 .Pfol_CTA h2,
 .Pfol_CTA .ViewProjectCTA {
   color: inherit;
+  position: relative;
+  z-index: 1;
+}
+
+body:not(.is-touch) .Pfol_CTA:hover h2,
+body:not(.is-touch) .Pfol_CTA:hover .ViewProjectCTA {
+  color: var(--dark);
 }
 
 .ViewProjectCTA {
@@ -753,7 +764,7 @@ body:not(.is-touch) .Pfol_CTA:hover .ViewProjectCTA::after {
 }
 
 .BentoItem {
-  background-color: var(--neutralD);
+  background-color: transparent;
   border-radius: 4px;
   padding: 0;
   overflow: hidden;
@@ -765,7 +776,14 @@ body:not(.is-touch) .Pfol_CTA:hover .ViewProjectCTA::after {
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  transition:
+    transform 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+    opacity 0.4s ease;
+}
+
+.BentoItem img[data-src],
+.BentoItem img.is-loading {
+  opacity: 0;
 }
 
 body:not(.is-touch) .BentoItem:hover img {
@@ -796,7 +814,9 @@ body:not(.is-touch) .BentoItem:hover img {
   padding: 10svh 5vw;
 
   border-top: 1px solid var(--neutralD);
-  border-bottom: 10px solid var(--highlight);
+  border-bottom: 20px solid var(--highlight);
+
+  /* border-radius: 0 0 10px 10px; */
 
   font-size: 13px;
   /* background-color: var(--dark); */
@@ -1241,6 +1261,7 @@ textarea {
 
   .BelowTheFoldSection .TextColumn {
     flex: none;
+    width: 90%;
   }
 
   .PreviewImage {
@@ -1601,7 +1622,8 @@ Work category navigation and page layout
   display: flex;
   align-items: flex-start;
   gap: 20px;
-  padding: 80px 5vw;
+  padding: 80px 5vw 0;
+  margin-bottom: 80px;
 }
 
 .NewWorkSidebar {
@@ -1649,10 +1671,16 @@ Work category navigation and page layout
     transform 0.3s ease;
 }
 
-body:not(.is-touch) .NewWorkCategory.NewWorkReset:hover,
 .NewWorkCategory.NewWorkReset:focus-visible {
   color: var(--white);
   transform: rotate(30deg);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  body:not(.is-touch) .NewWorkCategory.NewWorkReset:hover {
+    color: var(--white);
+    transform: rotate(30deg);
+  }
 }
 
 .NewWorkCategory .Dot {
@@ -1669,12 +1697,14 @@ body:not(.is-touch) .NewWorkCategory.NewWorkReset:hover,
   transition: transform 0.4s ease;
 }
 
-body:not(.is-touch) .NewWorkCategory:hover {
-  color: var(--highlight);
-}
+@media (hover: hover) and (pointer: fine) {
+  body:not(.is-touch) .NewWorkCategory:hover {
+    color: var(--highlight);
+  }
 
-body:not(.is-touch) .NewWorkCategory:hover .NewWorkCategoryLabel::after {
-  transform: translateX(5px);
+  body:not(.is-touch) .NewWorkCategory:hover .NewWorkCategoryLabel::after {
+    transform: translateX(5px);
+  }
 }
 
 .NewWorkProjects {
@@ -1686,6 +1716,10 @@ body:not(.is-touch) .NewWorkCategory:hover .NewWorkCategoryLabel::after {
 .NewWorkPage .WorkPfol_ProjectSection {
   padding: 0 0 200px;
   gap: 60px;
+}
+
+.NewWorkPage .WorkPfol_ProjectSection.is-last-visible {
+  padding-bottom: 0;
 }
 
 .NewWorkPage .WorkPfol_ProjectSection p {
@@ -1759,12 +1793,12 @@ body:not(.is-touch) .NewWorkCategory:hover .NewWorkCategoryLabel::after {
   }
 
   .NewWorkSidebar {
-    top: 30px;
+    top: 24px;
     z-index: 20;
     flex: none;
     width: calc(100% + 10vw);
     margin-inline: -5vw;
-    padding: 0 calc(2.5vw + 20px) 10px 2.5vw;
+    padding: 6px calc(2.5vw + 20px) 16px 2.5vw;
     isolation: isolate;
     background: transparent;
     transition: padding-right 0.35s ease;
@@ -1777,7 +1811,7 @@ body:not(.is-touch) .NewWorkCategory:hover .NewWorkCategoryLabel::after {
   .NewWorkSidebar::before {
     content: "";
     position: absolute;
-    inset: -30px 0 0;
+    inset: -24px 0 0;
     z-index: -1;
     pointer-events: none;
     background: rgba(12, 12, 12, 0.8);
@@ -1862,6 +1896,10 @@ PAGE_CONTACT
   width: 100%;
 }
 
+.ContactSplashCopy.is-first-sentence-wrapped .ContactSplashBreak {
+  display: none;
+}
+
 .ContactFooterMain {
   display: flex;
   flex-direction: column;
@@ -1913,6 +1951,15 @@ TABLETS - LANDSCAPE / SMALL LAPTOPS (<= 1024px)
 TABLETS - PORTRAIT (<= 768px)
 ========================================================================== */
 @media (width <= 768px) {
+  .ContactSplashCopy {
+    width: 100%;
+    max-width: none;
+  }
+
+  .Contact_SplashForm form {
+    width: 100%;
+  }
+
   .ContactFooterMain {
     align-items: center;
   }
@@ -1985,9 +2032,38 @@ NAV_BURGER
   width: 30px;
 }
 
-body:not(.is-touch) .BurgerButton:hover .BurgerLine::after,
-.BurgerButton:focus-visible .BurgerLine::after {
+/* Keep keyboard feedback, without Safari's automatic outline on pointer taps. */
+.BurgerButton:focus,
+.BurgerButton:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+.keyboard-navigation .BurgerButton:focus-visible .BurgerLine::after {
   transform: scaleX(1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  body:not(.is-touch) .BurgerButton:hover .BurgerLine::after {
+    transform: scaleX(1);
+  }
+}
+
+.BurgerButton,
+.NewWorkCategory,
+.Pfol_ProjectHeader[data-accordion] {
+  touch-action: manipulation;
+}
+
+/* Allow the ink of italic glyphs to extend beyond split-word boxes. */
+.SplitWord,
+.SplitLine {
+  overflow: visible;
+}
+
+.SplashContentContainer h1 em,
+.FooterGiT h2 em {
+  padding-inline-end: 0.1em;
 }
 
 .BurgerButton.is-open .BurgerLine:first-child {

@@ -76,7 +76,7 @@ if (burgerButton && burgerMenu) {
     burgerButton.setAttribute("aria-label", "Close menu");
     document.documentElement.style.overflow = "hidden";
     lenis.stop();
-    burgerButton.focus();
+    burgerButton.focus({ preventScroll: true });
   });
 
   burgerMenu.addEventListener("close", () => {
@@ -87,7 +87,7 @@ if (burgerButton && burgerMenu) {
     burgerButton.setAttribute("aria-label", "Open menu");
     document.documentElement.style.overflow = "";
     lenis.start();
-    burgerButton.focus();
+    burgerButton.focus({ preventScroll: true });
   });
 
   burgerMenu.addEventListener("cancel", (event) => {
@@ -111,17 +111,22 @@ Input mode detection
 ========================================================================== */
 
 const inputCapabilityQuery = window.matchMedia(
-  "(hover: none) and (pointer: coarse)",
+  "(hover: none), (pointer: coarse)",
 );
 
 document.body.classList.toggle("is-touch", inputCapabilityQuery.matches);
 
+window.addEventListener("keydown", (event) => {
+  if (event.key === "Tab") document.body.classList.add("keyboard-navigation");
+});
+
 window.addEventListener(
   "pointerdown",
   (event) => {
+    document.body.classList.remove("keyboard-navigation");
     document.body.classList.toggle("is-touch", event.pointerType !== "mouse");
   },
-  { passive: true },
+  { passive: true, capture: true },
 );
 
 window.addEventListener(
@@ -222,6 +227,8 @@ splashImages.forEach((splashImage) => {
 Splash carousel
 ========================================================================== */
 
+let resetSplashCarouselToFirst = null;
+
 const carousel = document.querySelector(".SplashImageContainer");
 
 const carouselTrack = document.querySelector(".SplashCarouselTrack");
@@ -236,6 +243,8 @@ if (carousel && carouselTrack && carouselSlides.length && carouselDots) {
   let currentSlide = 0;
   let autoplayTimer;
   let scrollEndTimer;
+  let carouselReady = false;
+  let carouselInteracted = false;
   const slideOffset = carouselSlides.length > 1 ? 1 : 0;
 
   const autoplayDelay = 4000;
@@ -249,6 +258,7 @@ if (carousel && carouselTrack && carouselSlides.length && carouselDots) {
     dot.setAttribute("aria-label", `Show image ${index + 1}`);
 
     dot.addEventListener("click", () => {
+      carouselInteracted = true;
       goToSlide(index);
       restartAutoplay();
     });
@@ -287,7 +297,7 @@ if (carousel && carouselTrack && carouselSlides.length && carouselDots) {
   }
 
   function updateActiveDot() {
-    if (!carouselTrack.clientWidth) return;
+    if (!carouselReady || !carouselTrack.clientWidth) return;
     const position = Math.round(
       carouselTrack.scrollLeft / carouselTrack.clientWidth,
     );
@@ -298,18 +308,27 @@ if (carousel && carouselTrack && carouselSlides.length && carouselDots) {
     });
   }
 
+  function jumpToCarouselPosition(position) {
+    // Safari may re-snap after layout: disable snapping during instant resets.
+    carouselTrack.style.scrollBehavior = "auto";
+    carouselTrack.style.scrollSnapType = "none";
+    carouselTrack.scrollLeft = carouselTrack.clientWidth * position;
+    carouselTrack.getBoundingClientRect();
+    requestAnimationFrame(() => {
+      carouselTrack.style.removeProperty("scroll-behavior");
+      carouselTrack.style.removeProperty("scroll-snap-type");
+    });
+  }
+
   function settleCarouselLoop() {
-    if (!slideOffset || !carouselTrack.clientWidth) return;
+    if (!carouselReady || !slideOffset || !carouselTrack.clientWidth) return;
     const width = carouselTrack.clientWidth;
     const position = Math.round(carouselTrack.scrollLeft / width);
     if (Math.abs(carouselTrack.scrollLeft - position * width) > 1) return;
 
     // The real slide is identical, so this instant reset is invisible.
     if (position === 0 || position === carouselSlides.length + 1) {
-      carouselTrack.scrollTo({
-        left: width * (position === 0 ? carouselSlides.length : 1),
-        behavior: "instant",
-      });
+      jumpToCarouselPosition(position === 0 ? carouselSlides.length : 1);
     }
     updateActiveDot();
   }
@@ -334,16 +353,39 @@ if (carousel && carouselTrack && carouselSlides.length && carouselDots) {
 
   dots[0].classList.add("is-active");
   prepareSlide(1);
-  carouselTrack.scrollTo({
-    left: carouselTrack.clientWidth * slideOffset,
-    behavior: "instant",
+
+  resetSplashCarouselToFirst = () => {
+    stopAutoplay();
+    clearTimeout(scrollEndTimer);
+    carouselReady = false;
+    currentSlide = 0;
+    jumpToCarouselPosition(slideOffset);
+    return new Promise((resolve) => {
+      requestAnimationFrame(() => {
+        jumpToCarouselPosition(slideOffset);
+        carouselReady = true;
+        updateActiveDot();
+        startAutoplay();
+        resolve();
+      });
+    });
+  };
+
+  resetSplashCarouselToFirst();
+  carouselTrack.addEventListener("pointerdown", () => {
+    carouselInteracted = true;
+  }, { passive: true });
+
+  window.addEventListener("load", () => {
+    if (!carouselInteracted) resetSplashCarouselToFirst();
+  }, { once: true });
+
+  window.addEventListener("pageshow", (event) => {
+    if (!event.persisted && !carouselInteracted) resetSplashCarouselToFirst();
   });
 
   window.addEventListener("resize", () => {
-    carouselTrack.scrollTo({
-      left: carouselTrack.clientWidth * (currentSlide + slideOffset),
-      behavior: "instant",
-    });
+    jumpToCarouselPosition(currentSlide + slideOffset);
   });
 
   carouselTrack.addEventListener("scrollend", settleCarouselLoop);
@@ -365,7 +407,6 @@ if (carousel && carouselTrack && carouselSlides.length && carouselDots) {
 
   carousel.addEventListener("focusout", startAutoplay);
 
-  startAutoplay();
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -374,6 +415,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.fonts.ready,
     new Promise((resolve) => setTimeout(resolve, 4000)),
   ]);
+  // Font/layout changes must not leave the leading last-slide copy visible.
+  if (resetSplashCarouselToFirst) await resetSplashCarouselToFirst();
 
   /* ==========================================================================
 Color flow background opacity
@@ -918,8 +961,22 @@ function loadProjectImages(projectContent) {
   const unloadedImages = projectContent.querySelectorAll("img[data-src]");
 
   unloadedImages.forEach((image) => {
+    image.classList.add("is-loading");
+
+    const revealImage = async () => {
+      if (image.naturalWidth && image.decode) {
+        try { await image.decode(); } catch (_) { /* Show a loaded image anyway. */ }
+      }
+      image.classList.remove("is-loading");
+    };
+
+    image.addEventListener("load", revealImage, { once: true });
+    image.addEventListener("error", revealImage, { once: true });
+    // Opening the accordion is the point at which these images are needed.
+    image.loading = "eager";
     image.src = image.dataset.src;
     image.removeAttribute("data-src");
+    if (image.complete && image.naturalWidth) revealImage();
   });
 }
 
@@ -936,6 +993,35 @@ accordionHeaders.forEach((header) => {
     const currentProject = currentHeader.closest(".Pfol_Project");
 
     const currentContent = currentProject.querySelector(".Pfol_ProjectContent");
+
+    // Keep the clicked header stationary while content above it changes height.
+    const headerTop = currentHeader.getBoundingClientRect().top;
+    let preserveHeaderPosition = true;
+    const allowUserScroll = () => { preserveHeaderPosition = false; };
+    window.addEventListener("wheel", allowUserScroll, { passive: true });
+    window.addEventListener("touchmove", allowUserScroll, { passive: true });
+
+    const keepHeaderInPlace = () => {
+      if (!preserveHeaderPosition) return;
+      const difference = currentHeader.getBoundingClientRect().top - headerTop;
+      if (Math.abs(difference) > 1) {
+        lenis.scrollTo(window.scrollY + difference, { immediate: true, force: true });
+      }
+    };
+
+    const releaseAccordionAnchor = () => {
+      preserveHeaderPosition = false;
+      window.removeEventListener("wheel", allowUserScroll);
+      window.removeEventListener("touchmove", allowUserScroll);
+    };
+
+    const finishAccordionLayout = () => {
+      lenis.resize();
+      ScrollTrigger.refresh();
+      lenis.resize();
+      keepHeaderInPlace();
+      releaseAccordionAnchor();
+    };
 
     // SCENARIO 1: Close current project
     if (currentProject === activeProject) {
@@ -956,13 +1042,15 @@ accordionHeaders.forEach((header) => {
         height: 0,
         duration: 0.4,
         ease: "power2.out",
+        onUpdate: keepHeaderInPlace,
+        onInterrupt: releaseAccordionAnchor,
 
         onComplete: () => {
           if (!currentProject.classList.contains("is-open")) {
             currentContent.hidden = true;
           }
 
-          ScrollTrigger.refresh();
+          finishAccordionLayout();
 
           const unlockScrollSpy = () => {
             isScrollSpyLocked = false;
@@ -999,12 +1087,14 @@ accordionHeaders.forEach((header) => {
         height: 0,
         duration: 0.4,
         ease: "power2.out",
+        onUpdate: keepHeaderInPlace,
         onComplete: () => {
           if (!previousProject.classList.contains("is-open")) {
             activeContent.hidden = true;
           }
 
-          ScrollTrigger.refresh();
+          lenis.resize();
+          keepHeaderInPlace();
         },
       });
     }
@@ -1025,7 +1115,9 @@ accordionHeaders.forEach((header) => {
       height: "80svh",
       duration: 0.4,
       ease: "power2.out",
-      onComplete: () => ScrollTrigger.refresh(),
+      onUpdate: keepHeaderInPlace,
+      onInterrupt: releaseAccordionAnchor,
+      onComplete: finishAccordionLayout,
     });
   });
 });
@@ -1050,14 +1142,14 @@ if (newWorkLayout) {
       const bounds = newWorkLayout.getBoundingClientRect();
       newWorkSidebar.classList.toggle(
         "is-stuck",
-        bounds.top < 30 && bounds.bottom > newWorkSidebar.offsetHeight + 30,
+        bounds.top < 24 && bounds.bottom > newWorkSidebar.offsetHeight + 24,
       );
     };
 
     ScrollTrigger.create({
       trigger: newWorkLayout,
-      start: "top 30px",
-      end: () => "bottom " + (newWorkSidebar.offsetHeight + 30) + "px",
+      start: "top 24px",
+      end: () => "bottom " + (newWorkSidebar.offsetHeight + 24) + "px",
       onUpdate: updateSidebarBackground,
       onRefresh: updateSidebarBackground,
     });
@@ -1080,6 +1172,7 @@ if (newWorkLayout) {
   function selectWorkCategory(button, scrollToProjects = true) {
       const category = button.dataset.category;
       let visibleCount = 0;
+      let lastVisibleProject = null;
 
       categoryButtons.forEach((item) => {
         const selected = item.dataset.category === category;
@@ -1094,13 +1187,17 @@ if (newWorkLayout) {
             ? !categories.includes("branding") && !categories.includes("web")
             : categories.includes(category));
         project.hidden = !visible;
+        project.classList.remove("is-last-visible");
         if (visible) {
           // Alternate layouts within the visible category, not the full list.
           project.classList.toggle("WorkPfol_LayoutA", visibleCount % 2 === 0);
           project.classList.toggle("WorkPfol_LayoutB", visibleCount % 2 !== 0);
           visibleCount++;
+          lastVisibleProject = project;
         }
       });
+
+      lastVisibleProject?.classList.add("is-last-visible");
 
       emptyMessage.hidden = visibleCount !== 0;
       categoryStatus.textContent = visibleCount + " projects shown.";
@@ -1111,7 +1208,7 @@ if (newWorkLayout) {
       if (!scrollToProjects) return;
 
       const sidebarHeight = window.innerWidth <= 768
-        ? newWorkLayout.querySelector(".NewWorkSidebar").offsetHeight + 30
+        ? newWorkLayout.querySelector(".NewWorkSidebar").offsetHeight + 24
         : 0;
       lenis.scrollTo(newWorkLayout, {
         offset: -sidebarHeight - 20,
@@ -1164,7 +1261,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   await document.fonts.ready;
 
   /* ==========================================================================
-  Portfolio title animations
+  Portfolio title and tag animations
   ========================================================================== */
 
   const portfolioTitles = gsap.utils.toArray(
@@ -1172,44 +1269,52 @@ document.addEventListener("DOMContentLoaded", async () => {
   );
 
   portfolioTitles.forEach((title) => {
+    const tagContainer = title.closest(".WorkPfol_TitleTagsContainer")
+      .querySelector(".WorkTagsContainer");
+
     SplitText.create(title, {
       type: "lines",
       linesClass: "SplitLine",
       autoSplit: true,
 
       onSplit(self) {
-        return gsap.from(self.lines, {
-          autoAlpha: 0,
-          y: 50,
-          duration: 1,
-          stagger: 0.15,
-          ease: "power3.out",
-
+        // One trigger keeps the tags tied to the title, even above it on mobile.
+        const reveal = gsap.timeline({
           scrollTrigger: {
             trigger: title,
             start: "top 80%",
             once: true,
           },
         });
-      },
-    });
-  });
 
-  /* ==========================================================================
-  Portfolio tag animations
-  ========================================================================== */
+        if (tagContainer) {
+          // Tags lead; the title follows shortly afterwards.
+          reveal.from(tagContainer, {
+            autoAlpha: 0,
+            duration: 0.3,
+            immediateRender: true,
+          }, 0);
 
-  gsap.utils.toArray(".WorkTagsContainer").forEach((tagContainer) => {
-    gsap.from(tagContainer.querySelectorAll("span"), {
-      opacity: 0,
-      duration: 0.7,
-      stagger: 0.15,
-      ease: "power3.out",
+          reveal.from(tagContainer.querySelectorAll("span"), {
+            opacity: 0,
+            duration: 0.7,
+            stagger: 0.15,
+            ease: "power3.out",
+            immediateRender: true,
+          }, 0);
+        }
 
-      scrollTrigger: {
-        trigger: tagContainer,
-        start: "top 85%",
-        once: true,
+        reveal.from(self.lines, {
+          autoAlpha: 0,
+          y: 50,
+          duration: 1,
+          stagger: 0.15,
+          ease: "power3.out",
+          immediateRender: true,
+        }, tagContainer ? 0.15 : 0);
+
+        // SplitText can preserve this timeline's progress when lines reflow.
+        return reveal;
       },
     });
   });
@@ -1282,3 +1387,54 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   ScrollTrigger.refresh();
 });
+
+/* ==========================================================================
+_-__-__-__-__-__-__-__-__-__-__-__-__-__-__-__-__-__-__-__-__-__-__-__-__-__-__-__-__-_
+PAGE_CONTACT
+_-__-__-__-__-__-__-__-__-__-__-__-__-__-__-__-__-__-__-__-__-__-__-__-__-__-__-__-__-_
+========================================================================== */
+
+/* ==========================================================================
+Contact intro: keep the sentence break only when sentence one fits on one line
+========================================================================== */
+
+const contactSplashCopy = document.querySelector(".ContactSplashCopy");
+const contactFirstSentence = document.querySelector(".ContactSplashFirstSentence");
+
+if (contactSplashCopy && contactFirstSentence) {
+  function updateContactCopyBreak() {
+    // Measure independently of the current break to avoid toggling back and forth.
+    const measure = contactFirstSentence.cloneNode(true);
+    measure.setAttribute("aria-hidden", "true");
+    Object.assign(measure.style, {
+      position: "fixed",
+      visibility: "hidden",
+      display: "inline-block",
+      whiteSpace: "nowrap",
+      width: "max-content",
+      maxWidth: "none",
+      padding: "0",
+    });
+    contactSplashCopy.appendChild(measure);
+    const sentenceWidth = measure.getBoundingClientRect().width;
+    measure.remove();
+
+    contactSplashCopy.classList.toggle(
+      "is-first-sentence-wrapped",
+      sentenceWidth > contactSplashCopy.getBoundingClientRect().width + 0.5,
+    );
+  }
+
+  updateContactCopyBreak();
+  document.fonts.ready.then(updateContactCopyBreak);
+  document.fonts.addEventListener("loadingdone", updateContactCopyBreak);
+
+  let previousWidth = -1;
+  const contactCopyObserver = new ResizeObserver(([entry]) => {
+    if (Math.abs(entry.contentRect.width - previousWidth) < 0.5) return;
+    previousWidth = entry.contentRect.width;
+    updateContactCopyBreak();
+  });
+  contactCopyObserver.observe(contactSplashCopy);
+}
+
