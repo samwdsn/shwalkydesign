@@ -6,6 +6,9 @@ gsap.registerPlugin(ScrollTrigger, SplitText);
 
 const lenis = new Lenis();
 
+// Re-arm the footer reveal when filtering changes the portfolio's height.
+let resetFooterReveal = null;
+
 lenis.on("scroll", ScrollTrigger.update);
 
 gsap.ticker.add((time) => {
@@ -240,7 +243,10 @@ const carouselSlides = gsap.utils.toArray(
 const carouselDots = document.querySelector(".SplashCarouselDots");
 
 if (carousel && carouselTrack && carouselSlides.length && carouselDots) {
-  let currentSlide = 0;
+  // HTML uses human-friendly slide numbers; internal indexes start at zero.
+  const requestedStartSlide = Number.parseInt(carousel.dataset.startSlide, 10) || 1;
+  const startSlide = Math.max(0, Math.min(carouselSlides.length - 1, requestedStartSlide - 1));
+  let currentSlide = startSlide;
   let autoplayTimer;
   let scrollEndTimer;
   let carouselReady = false;
@@ -351,18 +357,19 @@ if (carousel && carouselTrack && carouselSlides.length && carouselDots) {
     startAutoplay();
   }
 
-  dots[0].classList.add("is-active");
-  prepareSlide(1);
+  dots[startSlide].classList.add("is-active");
+  prepareSlide(startSlide);
+  prepareSlide(startSlide + 1);
 
   resetSplashCarouselToFirst = () => {
     stopAutoplay();
     clearTimeout(scrollEndTimer);
     carouselReady = false;
-    currentSlide = 0;
-    jumpToCarouselPosition(slideOffset);
+    currentSlide = startSlide;
+    jumpToCarouselPosition(startSlide + slideOffset);
     return new Promise((resolve) => {
       requestAnimationFrame(() => {
-        jumpToCarouselPosition(slideOffset);
+        jumpToCarouselPosition(startSlide + slideOffset);
         carouselReady = true;
         updateActiveDot();
         startAutoplay();
@@ -768,14 +775,9 @@ Footer text animation
 
     const footerArrow = footerHeading.querySelector(".FooterArrow");
 
-    const footerTimeline = gsap.timeline({
-      scrollTrigger: {
-        trigger: footerHeading,
-        start: "top 75%",
-        once: true,
-        // markers: true,
-      },
-    });
+    // Observe real visibility rather than consuming a one-time ScrollTrigger
+    // during the temporary layout changes caused by portfolio filtering.
+    const footerTimeline = gsap.timeline({ paused: true });
 
     footerTimeline.from(footerSplit.words, {
         autoAlpha: 0,
@@ -797,6 +799,20 @@ Footer text animation
         "-=0.8",
       );
     }
+
+    const footerObserver = new IntersectionObserver((entries) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return;
+      footerTimeline.play();
+      footerObserver.disconnect();
+    }, { rootMargin: "0px 0px -25% 0px" });
+
+    resetFooterReveal = () => {
+      footerObserver.disconnect();
+      footerTimeline.pause(0);
+      footerObserver.observe(footerHeading);
+    };
+
+    resetFooterReveal();
   }
 
   ScrollTrigger.refresh();
@@ -1168,9 +1184,19 @@ if (newWorkLayout) {
   const categoryProjects = newWorkLayout.querySelectorAll("[data-categories]");
   const emptyMessage = newWorkLayout.querySelector(".NewWorkEmpty");
   const categoryStatus = newWorkLayout.querySelector(".NewWorkStatus");
+  const moreWorkPrompt = newWorkLayout.querySelector(".NewWorkMorePrompt");
+  const showAllButton = newWorkLayout.querySelector(".NewWorkShowAll");
+  const allProjectsButton = newWorkLayout.querySelector('[data-category="all"]:not(.NewWorkReset)');
+  let activeCategory = null;
 
-  function selectWorkCategory(button, scrollToProjects = true) {
+  function categoryFromHash() {
+    const category = window.location.hash.slice(1).toLowerCase();
+    return ["branding", "web", "other"].includes(category) ? category : "all";
+  }
+
+  function selectWorkCategory(button, scrollToProjects = true, updateUrl = true) {
       const category = button.dataset.category;
+      activeCategory = category;
       let visibleCount = 0;
       let lastVisibleProject = null;
 
@@ -1200,11 +1226,21 @@ if (newWorkLayout) {
       lastVisibleProject?.classList.add("is-last-visible");
 
       emptyMessage.hidden = visibleCount !== 0;
+      if (moreWorkPrompt) moreWorkPrompt.hidden = category === "all";
       categoryStatus.textContent = visibleCount + " projects shown.";
+
+      // Updating history avoids the browser's native anchor jump.
+      if (updateUrl) {
+        const hash = category === "all" ? "" : "#" + category;
+        if (window.location.hash !== hash) {
+          window.history.pushState(null, "", window.location.pathname + window.location.search + hash);
+        }
+      }
       ScrollTrigger.refresh();
       // Filtering changes page height; update the scroll limit before scrolling.
       lenis.resize();
 
+      resetFooterReveal?.();
       if (!scrollToProjects) return;
 
       const sidebarHeight = window.innerWidth <= 768
@@ -1214,6 +1250,11 @@ if (newWorkLayout) {
         offset: -sidebarHeight - 20,
         duration: 0.8,
         force: true,
+        onComplete: () => {
+          // Re-arm at the final position, not a transient position while the
+          // shorter filtered page is scrolling back to the project navigation.
+          resetFooterReveal?.();
+        },
       });
   }
 
@@ -1221,11 +1262,26 @@ if (newWorkLayout) {
     button.addEventListener("click", () => selectWorkCategory(button));
   });
 
-  // Start with all projects on every screen size.
-  selectWorkCategory(
-    newWorkLayout.querySelector('[data-category="all"]:not(.NewWorkReset)'),
-    false,
-  );
+  showAllButton?.addEventListener("click", () => {
+    selectWorkCategory(allProjectsButton);
+    const visibleAllButton = window.innerWidth <= 768
+      ? newWorkLayout.querySelector(".NewWorkReset")
+      : allProjectsButton;
+    visibleAllButton.focus({ preventScroll: true });
+  });
+
+  function syncCategoryFromUrl(scrollToProjects = true) {
+    const category = categoryFromHash();
+    if (category === activeCategory) return;
+    const button = category === "all" ? allProjectsButton
+      : newWorkLayout.querySelector('[data-category="' + category + '"]');
+    selectWorkCategory(button, scrollToProjects, false);
+  }
+
+  // Shared links select the category without skipping the splash on arrival.
+  syncCategoryFromUrl(false);
+  window.addEventListener("popstate", () => syncCategoryFromUrl());
+  window.addEventListener("hashchange", () => syncCategoryFromUrl());
 }
 
 /* ==========================================================================

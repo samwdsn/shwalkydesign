@@ -55,7 +55,7 @@ em {
 }
 
 :root {
-  --highlight: #ff3600;
+  --highlight: #ff4d00;
   --dark: #0c0c0c;
   --light: #bfbfbf;
   --neutral: #666666;
@@ -1756,6 +1756,61 @@ Work category navigation and page layout
 .NewWorkEmpty {
   padding: 60px 0;
   color: var(--neutral);
+}
+
+.NewWorkMorePrompt {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  text-align: center;
+  flex-wrap: wrap;
+  gap: 10px 12px;
+  padding-top: 60px;
+  color: var(--white);
+}
+
+.NewWorkMorePrompt p {
+  margin: 0;
+  color: var(--white);
+}
+
+.NewWorkShowAll {
+  color: var(--highlight);
+  font: inherit;
+  text-align: left;
+  text-transform: uppercase;
+  touch-action: manipulation;
+  transition: color 0.3s ease;
+}
+
+.NewWorkShowAll span {
+  display: inline-block;
+  transition: transform 0.4s ease;
+}
+
+.NewWorkShowAll:focus-visible {
+  color: var(--white);
+}
+
+.NewWorkShowAll:focus-visible span {
+  transform: translateX(5px);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  body:not(.is-touch) .NewWorkShowAll:hover {
+    color: var(--white);
+  }
+
+  body:not(.is-touch) .NewWorkShowAll:hover span {
+    transform: translateX(5px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .NewWorkShowAll,
+  .NewWorkShowAll span {
+    transition: none;
+  }
 }
 
 @media (width > 1024px) and (width <= 1280px) {

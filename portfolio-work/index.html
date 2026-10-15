@@ -63,7 +63,7 @@
     >
       <nav class="BurgerNav" aria-label="Site navigation">
         <a class="BurgerLink" href="/">Home</a>
-        <a class="BurgerLink" href="/portfolio-work/">Portfolio Work</a>
+        <a class="BurgerLink" href="/portfolio-work/">View Projects</a>
         <a class="BurgerLink" href="/contact-me/">Contact Me</a>
       </nav>
       <div class="SocialWrapper BurgerSocials">
@@ -109,7 +109,7 @@
     <div class="ColorFlowBackground" aria-hidden="true"></div>
 
     <section class="SplashSection WorkSplashReversed">
-      <div class="SplashImageContainer">
+      <div class="SplashImageContainer" data-start-slide="3">
         <div class="SplashCarouselTrack">
           <div class="SplashCarouselSlide">
             <img
@@ -1171,6 +1171,10 @@
         </section>
 
         <p class="NewWorkEmpty" hidden>No projects in this category yet.</p>
+        <div class="NewWorkMorePrompt" hidden>
+          <p>For more great work,</p>
+          <button class="NewWorkShowAll" type="button">View All Projects <span aria-hidden="true">→</span></button>
+        </div>
       </div>
     </main>
 
