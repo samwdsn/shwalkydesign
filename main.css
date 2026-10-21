@@ -145,6 +145,7 @@ body {
 }
 
 .ColorFlowBackground {
+  display: none;
   position: fixed;
   inset: -12%;
   z-index: -1;
