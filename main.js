@@ -16,8 +16,18 @@ document.querySelectorAll('form[action^="https://formsubmit.co/"]').forEach((for
     form.append(sourceUrl);
   }
 
+  let pageUrl = form.querySelector('input[name="page_url"]');
+  if (!pageUrl) {
+    pageUrl = document.createElement("input");
+    pageUrl.type = "hidden";
+    pageUrl.name = "page_url";
+    form.append(pageUrl);
+  }
+
   const updateSourceUrl = () => {
-    sourceUrl.value = window.location.origin + window.location.pathname;
+    const url = window.location.origin + window.location.pathname;
+    sourceUrl.value = url;
+    pageUrl.value = url;
   };
   updateSourceUrl();
   form.addEventListener("submit", updateSourceUrl);
