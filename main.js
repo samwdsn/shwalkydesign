@@ -2,10 +2,6 @@
    Prerequisites — shared setup, navigation and resizing
    ========================================================================== */
 
-// TEMPORARY: green highlights mark the current splash scrolling test.
-document.documentElement.style.setProperty("--highlight", "#00c853");
-const enableSplashScrollFrames = true;
-
 document.querySelectorAll(".currentYear").forEach((year) => {
   year.textContent = new Date().getFullYear();
 });
@@ -82,7 +78,23 @@ if (typeof ScrollTrigger !== "undefined") {
 }
 
 const touchOnlyViewport = window.matchMedia("(hover: none) and (pointer: coarse)");
-const lenis = typeof Lenis !== "undefined" ? new Lenis() : null;
+const isIOSScrollDevice = /iPad|iPhone|iPod/i.test(navigator.userAgent) ||
+  (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+const useIOSScrollNormalizer = isIOSScrollDevice &&
+  typeof ScrollTrigger !== "undefined" &&
+  typeof ScrollTrigger.normalizeScroll === "function";
+
+// Use one scroll controller on iOS; leave Android and desktop on Lenis.
+const lenis = !useIOSScrollNormalizer && typeof Lenis !== "undefined"
+  ? new Lenis()
+  : null;
+const scrollNormalizer = useIOSScrollNormalizer
+  ? ScrollTrigger.normalizeScroll({
+      type: "touch",
+      allowNestedScroll: true,
+      momentum: () => 1.2,
+    })
+  : null;
 
 if (lenis) {
   lenis.on("scroll", ScrollTrigger.update);
@@ -187,6 +199,7 @@ if (burgerButton && burgerMenu) {
     burgerButton.setAttribute("aria-label", "Close menu");
     document.documentElement.style.overflow = "hidden";
     lenis?.stop();
+    scrollNormalizer?.disable();
     burgerButton.focus({ preventScroll: true });
   });
 
@@ -198,6 +211,7 @@ if (burgerButton && burgerMenu) {
     burgerButton.setAttribute("aria-label", "Open menu");
     document.documentElement.style.overflow = "";
     lenis?.start();
+    scrollNormalizer?.enable();
     burgerButton.focus({ preventScroll: true });
   });
 
@@ -233,11 +247,8 @@ function initHomeSplash() {
   const svgFrames = gsap.utils.toArray(".svgFrame");
   const svgFrameSequence = [0, 1, 0, 2, 0, 3, 0];
   const layoutDuration = 3 / 24;
-  let visibleSvgFrame;
 
   function showSvgFrame(frameIndex) {
-    if (visibleSvgFrame === frameIndex) return;
-    visibleSvgFrame = frameIndex;
     gsap.set(svgFrames, { visibility: "hidden" });
     gsap.set(svgFrames[frameIndex], { visibility: "visible" });
   }
@@ -258,21 +269,50 @@ function initHomeSplash() {
   let frameReset;
 
   function updateScrollFrames(self) {
-    if (!enableSplashScrollFrames) return;
-    const mobile = touchOnlyViewport.matches;
-    const scrollSequence = mobile ? [0, 1, 0] : svgFrameSequence;
     const sequenceIndex = Math.min(
-      scrollSequence.length - 1,
-      Math.floor(self.progress * scrollSequence.length),
+      svgFrameSequence.length - 1,
+      Math.floor(self.progress * svgFrameSequence.length),
     );
 
-    showSvgFrame(scrollSequence[sequenceIndex]);
+    showSvgFrame(svgFrameSequence[sequenceIndex]);
     frameReset?.kill();
-    frameReset = gsap.delayedCall(mobile ? 0.3 : 0.1, () => showSvgFrame(0));
+    frameReset = gsap.delayedCall(0.1, () => showSvgFrame(0));
   }
 
   // Keep the scroll position when switching between mobile and desktop.
   const splashMobileQuery = window.matchMedia("(width <= 640px)");
+  const splashSvg = splashSection.querySelector(".splashSVGContainer");
+  const splashCopy = splashSection.querySelector(".splashCopyContainer");
+  const ambitiousWord = splashSection.querySelector(".splashLine01 .revealWord:last-child");
+
+  // Use layout positions, ignoring GSAP's reveal/parallax transforms.
+  // Calculate a base size leaving 24px above AMBITIOUS; CSS adds 20px to it.
+  function layoutTop(element) {
+    let top = 0;
+    for (let node = element; node; node = node.offsetParent) {
+      top += node.offsetTop;
+    }
+    return top;
+  }
+
+  function fitMobileSplashSvg() {
+    if (!splashMobileQuery.matches) {
+      splashSvg.style.removeProperty("--mobile-splash-svg-space");
+      return;
+    }
+    const availableHeight = Math.max(
+      0,
+      Math.floor(layoutTop(ambitiousWord) - layoutTop(splashSvg) - 24),
+    );
+    splashSvg.style.setProperty("--mobile-splash-svg-space", `${availableHeight}px`);
+  }
+
+  fitMobileSplashSvg();
+  const splashLayoutObserver = new ResizeObserver(fitMobileSplashSvg);
+  splashLayoutObserver.observe(splashSection);
+  splashLayoutObserver.observe(splashCopy);
+  splashMobileQuery.addEventListener("change", fitMobileSplashSvg);
+
   let splashWasMobile = splashMobileQuery.matches;
   let breakpointScroll = null;
 
@@ -310,8 +350,9 @@ function initHomeSplash() {
             start: "top bottom",
             end: "top top-=1400",
             scrub: scrollScrub,
-            svgParallaxY: -0.6,
-            copyParallaxY: -0.3,
+            // Fixed pixels: equivalent to 60/30svh at an 800px reference height.
+            svgParallaxY: -480,
+            copyParallaxY: -240,
             parallaxStart: "top top",
             parallaxScrub: scrollScrub,
           }
@@ -321,8 +362,9 @@ function initHomeSplash() {
             start: "top bottom",
             end: "top top-=400",
             scrub: scrollScrub,
-            svgParallaxY: -0.3,
-            copyParallaxY: -0.3,
+            // Fixed pixels: equivalent to 30svh at an 800px reference height.
+            svgParallaxY: -240,
+            copyParallaxY: -240,
             parallaxStart: "top top",
             parallaxScrub: scrollScrub,
           };
@@ -352,14 +394,14 @@ function initHomeSplash() {
         .to(
           ".splashSVGContainer",
           {
-            y: () => smallViewportHeight() * settings.svgParallaxY,
+            y: settings.svgParallaxY,
           },
           0,
         )
         .to(
           ".splashNav, .splashCopyContainer",
           {
-            y: () => smallViewportHeight() * settings.copyParallaxY,
+            y: settings.copyParallaxY,
           },
           0,
         );
@@ -656,11 +698,8 @@ function initPortfolioPage() {
   let portfolioFrameReset;
   let portfolioScrollStarted = false;
   let portfolioLastScroll = window.scrollY;
-  let visiblePortfolioFrame;
 
   function showPortfolioFrame(frameIndex) {
-    if (visiblePortfolioFrame === frameIndex) return;
-    visiblePortfolioFrame = frameIndex;
     portfolioFrames.forEach((frame) => {
       frame.classList.toggle(
         "is-active",
@@ -814,22 +853,19 @@ function initPortfolioPage() {
     end: () => `top top-=${innerWidth <= 768 ? 1400 : 400}`,
     invalidateOnRefresh: true,
     onUpdate: (self) => {
-      if (!enableSplashScrollFrames) return;
       const scroll = self.scroll();
       if (scroll === portfolioLastScroll) return;
       portfolioLastScroll = scroll;
       if (!self.isActive && self.progress === 0) return;
       portfolioScrollStarted = true;
       portfolioFrameAnimation.pause();
-      const mobile = touchOnlyViewport.matches;
-      const scrollSequence = mobile ? [0, 1, 0] : portfolioFrameSequence;
       const sequenceIndex = Math.min(
-        scrollSequence.length - 1,
-        Math.floor(self.progress * scrollSequence.length),
+        portfolioFrameSequence.length - 1,
+        Math.floor(self.progress * portfolioFrameSequence.length),
       );
-      showPortfolioFrame(scrollSequence[sequenceIndex]);
+      showPortfolioFrame(portfolioFrameSequence[sequenceIndex]);
       portfolioFrameReset?.kill();
-      portfolioFrameReset = gsap.delayedCall(mobile ? 0.3 : 0.1, () => showPortfolioFrame(0));
+      portfolioFrameReset = gsap.delayedCall(0.1, () => showPortfolioFrame(0));
     },
   });
 

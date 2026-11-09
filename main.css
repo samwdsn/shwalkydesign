@@ -1242,8 +1242,7 @@ Responsive
   }
 
   .splashSection {
-    max-height: 90svh;
-    height: 95svh;
+    height: 90svh;
     padding: 10svh 5vw 2.5svh;
     justify-content: flex-end;
   }
@@ -1253,7 +1252,7 @@ Responsive
     top: 8svh;
     right: 5vw;
     width: auto;
-    height: 60svh;
+    height: calc(min(60svh, var(--mobile-splash-svg-space, 60svh)) + 20px);
     aspect-ratio: 540 / 1440;
     margin: 0;
   }
@@ -1706,6 +1705,11 @@ Responsive
 }
 
 @media (width <= 768px) {
+  .portfolioPage .portfolioFeature,
+  .portfolioPage .portfolioFeature--reverse {
+    row-gap: 60px;
+  }
+
   .portfolioSplash {
     display: flex;
     flex-direction: column;
