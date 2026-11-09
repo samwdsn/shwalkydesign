@@ -422,7 +422,7 @@ Page Nav
 }
 
 .splashSection {
-  position: sticky;
+  position: relative;
   top: 0;
   z-index: 0;
   display: flex;

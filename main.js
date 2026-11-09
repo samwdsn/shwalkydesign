@@ -2,10 +2,9 @@
    Prerequisites — shared setup, navigation and resizing
    ========================================================================== */
 
-// TEMPORARY: green highlights confirm the scroll-frame-switching test has loaded.
+// TEMPORARY: green highlights mark the current splash scrolling test.
 document.documentElement.style.setProperty("--highlight", "#00c853");
-// Keep load-time frame sequences, but disable frame changes caused by scrolling.
-const enableSplashScrollFrames = false;
+const enableSplashScrollFrames = true;
 
 document.querySelectorAll(".currentYear").forEach((year) => {
   year.textContent = new Date().getFullYear();
@@ -221,11 +220,24 @@ if (burgerButton && burgerMenu) {
    ========================================================================== */
 
 function initHomeSplash() {
+  const splashWrapper = document.querySelector(".splashParallax");
+  const splashSection = document.querySelector(".splashSection");
+  // Resolve CSS small-viewport units to pixels for GSAP. Unlike innerHeight,
+  // 100svh stays stable while the mobile browser toolbar opens and closes.
+  const viewportProbe = document.createElement("div");
+  viewportProbe.setAttribute("aria-hidden", "true");
+  viewportProbe.style.cssText = "position:absolute;top:0;left:0;width:0;height:100vh;height:100svh;visibility:hidden;pointer-events:none;overflow:hidden;";
+  splashWrapper.append(viewportProbe);
+  const smallViewportHeight = () => viewportProbe.getBoundingClientRect().height;
+
   const svgFrames = gsap.utils.toArray(".svgFrame");
   const svgFrameSequence = [0, 1, 0, 2, 0, 3, 0];
   const layoutDuration = 3 / 24;
+  let visibleSvgFrame;
 
   function showSvgFrame(frameIndex) {
+    if (visibleSvgFrame === frameIndex) return;
+    visibleSvgFrame = frameIndex;
     gsap.set(svgFrames, { visibility: "hidden" });
     gsap.set(svgFrames[frameIndex], { visibility: "visible" });
   }
@@ -247,14 +259,16 @@ function initHomeSplash() {
 
   function updateScrollFrames(self) {
     if (!enableSplashScrollFrames) return;
+    const mobile = touchOnlyViewport.matches;
+    const scrollSequence = mobile ? [0, 1, 0] : svgFrameSequence;
     const sequenceIndex = Math.min(
-      svgFrameSequence.length - 1,
-      Math.floor(self.progress * svgFrameSequence.length),
+      scrollSequence.length - 1,
+      Math.floor(self.progress * scrollSequence.length),
     );
 
-    showSvgFrame(svgFrameSequence[sequenceIndex]);
+    showSvgFrame(scrollSequence[sequenceIndex]);
     frameReset?.kill();
-    frameReset = gsap.delayedCall(0.1, () => showSvgFrame(0));
+    frameReset = gsap.delayedCall(mobile ? 0.3 : 0.1, () => showSvgFrame(0));
   }
 
   // Keep the scroll position when switching between mobile and desktop.
@@ -299,7 +313,6 @@ function initHomeSplash() {
             svgParallaxY: -0.6,
             copyParallaxY: -0.3,
             parallaxStart: "top top",
-            parallaxEnd: "bottom bottom",
             parallaxScrub: scrollScrub,
           }
         : {
@@ -311,9 +324,19 @@ function initHomeSplash() {
             svgParallaxY: -0.3,
             copyParallaxY: -0.3,
             parallaxStart: "top top",
-            parallaxEnd: "bottom bottom",
             parallaxScrub: scrollScrub,
           };
+
+      // Retain the splash's natural layout height so BTF scrolls over it.
+      // Unpin where CSS sticky previously reached its containing block's end.
+      ScrollTrigger.create({
+        trigger: splashWrapper,
+        start: "top top",
+        end: () => `+=${Math.max(1, splashWrapper.offsetHeight - splashSection.offsetHeight)}`,
+        pin: splashSection,
+        pinSpacing: false,
+        invalidateOnRefresh: true,
+      });
 
       gsap
         .timeline({
@@ -321,7 +344,7 @@ function initHomeSplash() {
           scrollTrigger: {
             trigger: ".splashParallax",
             start: settings.parallaxStart,
-            end: settings.parallaxEnd,
+            end: () => `+=${Math.max(1, splashWrapper.offsetHeight - smallViewportHeight())}`,
             scrub: settings.parallaxScrub,
             invalidateOnRefresh: true,
           },
@@ -329,14 +352,14 @@ function initHomeSplash() {
         .to(
           ".splashSVGContainer",
           {
-            y: () => window.innerHeight * settings.svgParallaxY,
+            y: () => smallViewportHeight() * settings.svgParallaxY,
           },
           0,
         )
         .to(
           ".splashNav, .splashCopyContainer",
           {
-            y: () => window.innerHeight * settings.copyParallaxY,
+            y: () => smallViewportHeight() * settings.copyParallaxY,
           },
           0,
         );
@@ -633,8 +656,11 @@ function initPortfolioPage() {
   let portfolioFrameReset;
   let portfolioScrollStarted = false;
   let portfolioLastScroll = window.scrollY;
+  let visiblePortfolioFrame;
 
   function showPortfolioFrame(frameIndex) {
+    if (visiblePortfolioFrame === frameIndex) return;
+    visiblePortfolioFrame = frameIndex;
     portfolioFrames.forEach((frame) => {
       frame.classList.toggle(
         "is-active",
@@ -795,13 +821,15 @@ function initPortfolioPage() {
       if (!self.isActive && self.progress === 0) return;
       portfolioScrollStarted = true;
       portfolioFrameAnimation.pause();
+      const mobile = touchOnlyViewport.matches;
+      const scrollSequence = mobile ? [0, 1, 0] : portfolioFrameSequence;
       const sequenceIndex = Math.min(
-        portfolioFrameSequence.length - 1,
-        Math.floor(self.progress * portfolioFrameSequence.length),
+        scrollSequence.length - 1,
+        Math.floor(self.progress * scrollSequence.length),
       );
-      showPortfolioFrame(portfolioFrameSequence[sequenceIndex]);
+      showPortfolioFrame(scrollSequence[sequenceIndex]);
       portfolioFrameReset?.kill();
-      portfolioFrameReset = gsap.delayedCall(0.1, () => showPortfolioFrame(0));
+      portfolioFrameReset = gsap.delayedCall(mobile ? 0.3 : 0.1, () => showPortfolioFrame(0));
     },
   });
 
