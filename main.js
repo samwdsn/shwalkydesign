@@ -87,6 +87,9 @@ if (lenis) {
 }
 
 let resizeTimer;
+let layoutViewportWidth = window.innerWidth;
+const touchOnlyViewport = window.matchMedia("(hover: none) and (pointer: coarse)");
+
 function refreshPageLayout() {
   clearTimeout(resizeTimer);
   resizeTimer = setTimeout(() => {
@@ -95,7 +98,23 @@ function refreshPageLayout() {
   }, 150);
 }
 
-window.addEventListener("resize", refreshPageLayout);
+function handleViewportResize() {
+  const width = window.innerWidth;
+  const widthChanged = width !== layoutViewportWidth;
+  layoutViewportWidth = width;
+
+  // Mobile browser chrome changes the height while scrolling. Don't refresh
+  // animation positions for those changes or cancel a pending real refresh.
+  if (touchOnlyViewport.matches && !widthChanged) return;
+  refreshPageLayout();
+}
+
+window.addEventListener("resize", handleViewportResize);
+if (window.screen?.orientation?.addEventListener) {
+  window.screen.orientation.addEventListener("change", refreshPageLayout);
+} else {
+  window.addEventListener("orientationchange", refreshPageLayout);
+}
 document.fonts.addEventListener("loadingdone", refreshPageLayout);
 
 /* Move images inside their clipped frames, without moving captions or layout. */
