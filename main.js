@@ -133,7 +133,7 @@ function initImageParallax(selector, reverseSelector, amount) {
           trigger: frame,
           start: "top bottom",
           end: "bottom top",
-          scrub: true,
+          scrub: touchOnlyViewport.matches ? 0.2 : true,
           invalidateOnRefresh: true,
         },
       },
@@ -278,30 +278,31 @@ function initHomeSplash() {
       desktop: "(width > 640px)",
     },
     (context) => {
+      const scrollScrub = touchOnlyViewport.matches ? 0.2 : true;
       const settings = context.conditions.mobile
         ? {
             // Mobile settings
             width: "100%",
             start: "top bottom",
             end: "top top-=1400",
-            scrub: true,
+            scrub: scrollScrub,
             svgParallaxY: -0.6,
             copyParallaxY: -0.3,
             parallaxStart: "top top",
             parallaxEnd: "bottom bottom",
-            parallaxScrub: true,
+            parallaxScrub: scrollScrub,
           }
         : {
             // Desktop settings
             width: "100%",
             start: "top bottom",
             end: "top top-=400",
-            scrub: true,
+            scrub: scrollScrub,
             svgParallaxY: -0.3,
             copyParallaxY: -0.3,
             parallaxStart: "top top",
             parallaxEnd: "bottom bottom",
-            parallaxScrub: true,
+            parallaxScrub: scrollScrub,
           };
 
       gsap
