@@ -6,6 +6,34 @@ document.querySelectorAll(".currentYear").forEach((year) => {
   year.textContent = new Date().getFullYear();
 });
 
+/* Best-effort device details; browser privacy settings can limit accuracy. */
+function getFormDeviceDetails() {
+  const ua = navigator.userAgent || "";
+  const isIPad = /iPad/i.test(ua) ||
+    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  const isIOS = isIPad || /iPhone|iPod/i.test(ua);
+  const device = isIPad ? "Tablet (iPad)"
+    : /iPhone/i.test(ua) ? "Mobile (iPhone)"
+    : /Tablet|PlayBook|Silk/i.test(ua) || (/Android/i.test(ua) && !/Mobile/i.test(ua)) ? "Tablet"
+    : /Mobile|iPod/i.test(ua) ? "Mobile"
+    : "Desktop";
+  const os = isIOS ? "iOS / iPadOS"
+    : /Android/i.test(ua) ? "Android"
+    : /Windows/i.test(ua) ? "Windows"
+    : /CrOS/i.test(ua) ? "ChromeOS"
+    : /Macintosh|Mac OS X/i.test(ua) ? "macOS"
+    : /Linux/i.test(ua) ? "Linux"
+    : "Unknown OS";
+  const browser = /Edg(?:e|A|iOS)?\//i.test(ua) ? "Edge"
+    : /OPR\/|OPiOS\/|Opera/i.test(ua) ? "Opera"
+    : /SamsungBrowser\//i.test(ua) ? "Samsung Internet"
+    : /Firefox\/|FxiOS\//i.test(ua) ? "Firefox"
+    : /Chrome\/|CriOS\//i.test(ua) ? "Chrome"
+    : /Safari\//i.test(ua) ? "Safari"
+    : "Unknown browser";
+  return `${device} / ${os} / ${browser}`;
+}
+
 /* Include the submitting page, without query strings or URL fragments. */
 document.querySelectorAll('form[action^="https://formsubmit.co/"]').forEach((form) => {
   let sourceUrl = form.querySelector('input[name="_url"]');
@@ -24,10 +52,19 @@ document.querySelectorAll('form[action^="https://formsubmit.co/"]').forEach((for
     form.append(pageUrl);
   }
 
+  let device = form.querySelector('input[name="device"]');
+  if (!device) {
+    device = document.createElement("input");
+    device.type = "hidden";
+    device.name = "device";
+    form.append(device);
+  }
+
   const updateSourceUrl = () => {
     const url = window.location.origin + window.location.pathname;
     sourceUrl.value = url;
     pageUrl.value = url;
+    device.value = getFormDeviceDetails();
   };
   updateSourceUrl();
   form.addEventListener("submit", updateSourceUrl);
