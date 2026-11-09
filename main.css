@@ -181,6 +181,10 @@ body {
   touch-action: manipulation;
 }
 
+.BurgerButton:focus {
+  outline: none;
+}
+
 .BurgerButton:focus-visible .BurgerLine::after {
   clip-path: inset(0 100% 0 0);
 }
@@ -1060,7 +1064,7 @@ Responsive
 
 @media (width <= 1280px) {
   :root {
-    --highlight: #ffd900;
+    /* --highlight: #ffd900; */
   }
 
   .PreviewImage {
@@ -1070,7 +1074,7 @@ Responsive
 
 @media (width <= 1024px) {
   :root {
-    --highlight: #0040ff;
+    /* --highlight: #0040ff; */
   }
 
   .splashSection {
@@ -1113,7 +1117,7 @@ Responsive
 
 @media (width <= 768px) {
   :root {
-    --highlight: #ff0084;
+    /* --highlight: #ff0084; */
   }
 
   .splashNav {
@@ -1212,7 +1216,7 @@ Responsive
 
 @media (width <= 640px) {
   :root {
-    --highlight: #ff3600;
+    /* --highlight: #ff3600; */
   }
 
   .Pfol_SectionTab {
@@ -1360,6 +1364,8 @@ Responsive
   justify-content: center;
   align-items: flex-start;
   width: 50%;
+
+  padding-top: 5vh;
 }
 
 .contactWords {
@@ -1669,7 +1675,7 @@ Responsive
 
 @media (768px < width <= 896px) {
   .portfolioPage {
-    --highlight: #8a2be2;
+    /* --highlight: #8a2be2; */
   }
 }
 

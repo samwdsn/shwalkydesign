@@ -6,6 +6,23 @@ document.querySelectorAll(".currentYear").forEach((year) => {
   year.textContent = new Date().getFullYear();
 });
 
+/* Include the submitting page, without query strings or URL fragments. */
+document.querySelectorAll('form[action^="https://formsubmit.co/"]').forEach((form) => {
+  let sourceUrl = form.querySelector('input[name="_url"]');
+  if (!sourceUrl) {
+    sourceUrl = document.createElement("input");
+    sourceUrl.type = "hidden";
+    sourceUrl.name = "_url";
+    form.append(sourceUrl);
+  }
+
+  const updateSourceUrl = () => {
+    sourceUrl.value = window.location.origin + window.location.pathname;
+  };
+  updateSourceUrl();
+  form.addEventListener("submit", updateSourceUrl);
+});
+
 if (typeof ScrollTrigger !== "undefined") gsap.registerPlugin(ScrollTrigger);
 if (typeof SplitText !== "undefined") gsap.registerPlugin(SplitText);
 
