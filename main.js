@@ -34,6 +34,30 @@ function refreshPageLayout() {
 window.addEventListener("resize", refreshPageLayout);
 document.fonts.addEventListener("loadingdone", refreshPageLayout);
 
+/* Move images inside their clipped frames, without moving captions or layout. */
+function initImageParallax(selector, reverseSelector, amount) {
+  document.querySelectorAll(selector).forEach((image) => {
+    const frame = image.parentElement;
+    const direction = reverseSelector && image.closest(reverseSelector) ? -1 : 1;
+    const scale = Math.max(1.24, 1 + (amount * 2 + 4) / 100);
+    gsap.fromTo(image,
+      { yPercent: -amount * direction, scale },
+      {
+        yPercent: amount * direction,
+        scale,
+        ease: "none",
+        scrollTrigger: {
+          trigger: frame,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true,
+          invalidateOnRefresh: true,
+        },
+      },
+    );
+  });
+}
+
 /* Burger navigation — shared by every page. */
 const burgerButton = document.querySelector(".BurgerButton");
 const burgerMenu = document.querySelector(".BurgerMenu");
@@ -688,6 +712,16 @@ function initPortfolioPage() {
 
   return window.pageFontsReady.then(() => {
     /* Web27-style content reveals — never target the project rows. */
+    portfolioBreakpoints.add(
+      { mobile: "(width <= 768px)", desktop: "(width > 768px)" },
+      (context) => {
+        initImageParallax(
+          ".portfolioFeatureMedia img",
+          ".portfolioFeatureWide",
+          context.conditions.mobile ? 10 : 6,
+        );
+      },
+    );
     document.querySelectorAll(".portfolioFeature").forEach((section, index) => {
       const copy = section.querySelector(".portfolioFeatureCopy");
 
@@ -803,6 +837,7 @@ function initPortfolioPage() {
 
 function initCaseStudyPage() {
   return window.pageFontsReady.then(() => {
+    initImageParallax(".caseStudyImage01 img", null, 12);
     document.querySelectorAll(".caseStudyCopy").forEach((copy) => {
       gsap.from(copy.children, {
         autoAlpha: 0,
@@ -818,10 +853,11 @@ function initCaseStudyPage() {
       });
     });
 
-    document.querySelectorAll(".caseStudyGallery figure").forEach((image) => {
+    document.querySelectorAll(".caseStudyGallery figure").forEach((image, index) => {
       gsap.from(image, {
         autoAlpha: 0,
         duration: 1,
+        delay: index * 0.2,
         ease: "power2.out",
         scrollTrigger: {
           trigger: image,

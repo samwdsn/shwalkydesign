@@ -1614,16 +1614,22 @@ Responsive
   min-width: 0;
 }
 
-.portfolioFeature img {
+.portfolioFeatureMedia {
+  overflow: hidden;
+}
+
+.portfolioFeatureMedia img {
+  display: block;
   width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
-.portfolioFeatureTall img {
+.portfolioFeatureTall .portfolioFeatureMedia {
   aspect-ratio: 4 / 5.5;
 }
 
-.portfolioFeatureWide img {
+.portfolioFeatureWide .portfolioFeatureMedia {
   aspect-ratio: 3 / 2;
 }
 
