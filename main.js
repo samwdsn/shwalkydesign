@@ -2,6 +2,9 @@
    Prerequisites — shared setup, navigation and resizing
    ========================================================================== */
 
+// TEMPORARY: blue highlights confirm the native-touch-scroll test JS has loaded.
+document.documentElement.style.setProperty("--highlight", "#0040ff");
+
 document.querySelectorAll(".currentYear").forEach((year) => {
   year.textContent = new Date().getFullYear();
 });
@@ -77,7 +80,11 @@ if (typeof ScrollTrigger !== "undefined") {
   ScrollTrigger.config({ ignoreMobileResize: true });
 }
 
-const lenis = typeof Lenis !== "undefined" ? new Lenis() : null;
+const touchOnlyViewport = window.matchMedia("(hover: none) and (pointer: coarse)");
+// Keep native scrolling on touch devices; retain Lenis for desktop input.
+const lenis = !touchOnlyViewport.matches && typeof Lenis !== "undefined"
+  ? new Lenis()
+  : null;
 
 if (lenis) {
   lenis.on("scroll", ScrollTrigger.update);
@@ -88,7 +95,6 @@ if (lenis) {
 
 let resizeTimer;
 let layoutViewportWidth = window.innerWidth;
-const touchOnlyViewport = window.matchMedia("(hover: none) and (pointer: coarse)");
 
 function refreshPageLayout() {
   clearTimeout(resizeTimer);
@@ -264,8 +270,12 @@ function initHomeSplash() {
 
   gsap.addEventListener("matchMedia", () => {
     if (breakpointScroll === null) return;
-    lenis.resize();
-    lenis.scrollTo(breakpointScroll, { immediate: true, force: true });
+    if (lenis) {
+      lenis.resize();
+      lenis.scrollTo(breakpointScroll, { immediate: true, force: true });
+    } else {
+      window.scrollTo({ top: breakpointScroll, left: 0, behavior: "instant" });
+    }
     breakpointScroll = null;
     ScrollTrigger.update();
   });
