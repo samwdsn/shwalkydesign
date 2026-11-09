@@ -1,0 +1,642 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Web27 font loading: prepare fonts before revealing the page. -->
+    <link
+      rel="preload"
+      href="./fonts/InterDisplay-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="./fonts/InterDisplay-Italic.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="./fonts/CofoSans-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <script>
+      document.documentElement.classList.add("splash-fonts-loading");
+      window.splashFontFallback = setTimeout(() => {
+        document.documentElement.classList.remove("splash-fonts-loading");
+      }, 5000);
+      window.pageFontsReady = new Promise((resolve) => {
+        document.addEventListener(
+          "DOMContentLoaded",
+          () => {
+            Promise.race([
+              document.fonts.ready,
+              new Promise((done) => setTimeout(done, 4000)),
+            ]).then(resolve);
+          },
+          { once: true },
+        );
+      });
+    </script>
+    <link rel="icon" type="image/png" href="/favicon.png?v=3" />
+    <meta
+      property="og:image"
+      content="https://samwalkerdesign.com/images/SocialSharing.jpg"
+    />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Sam Walker Design" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:image"
+      content="https://samwalkerdesign.com/images/SocialSharing.jpg"
+    />
+    <meta name="twitter:image:alt" content="Sam Walker Design" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Sam Walker | Brand &amp; Web Design</title>
+    <meta
+      name="description"
+      content="Creative design for ambitious global brands. Sam Walker is a Manchester-based designer specialising in brand identity, web design and creative campaigns."
+    />
+    <meta property="og:title" content="Sam Walker | Brand &amp; Web Design" />
+    <meta
+      property="og:description"
+      content="Creative design for ambitious global brands. Sam Walker is a Manchester-based designer specialising in brand identity, web design and creative campaigns."
+    />
+    <meta name="twitter:title" content="Sam Walker | Brand &amp; Web Design" />
+    <meta
+      name="twitter:description"
+      content="Creative design for ambitious global brands. Sam Walker is a Manchester-based designer specialising in brand identity, web design and creative campaigns."
+    />
+
+    <link rel="preload" href="./SVG/TypogSVGS/DSN_Typog_01.svg" as="image" />
+    <link rel="preload" href="./SVG/TypogSVGS/DSN_Typog_02.svg" as="image" />
+    <link rel="preload" href="./SVG/TypogSVGS/DSN_Typog_03.svg" as="image" />
+    <link rel="preload" href="./SVG/TypogSVGS/DSN_Typog_04.svg" as="image" />
+
+    <link rel="stylesheet" href="./main.css" />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/lenis@1.3.11/dist/lenis.min.js"
+      defer
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"
+      defer
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"
+      defer
+    ></script>
+    <script src="./main.js" defer></script>
+  </head>
+
+  <body>
+    <nav class="pageNav">
+      <div class="pageNavLogo" aria-label="Sam Walker">
+        <span class="pageNavLogoMark" aria-hidden="true"></span>
+        <span class="pageNavLogoType" aria-hidden="true"></span>
+      </div>
+      <button
+        class="BurgerButton"
+        type="button"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="BurgerMenu"
+      >
+        <span class="BurgerLine"></span>
+        <span class="BurgerLine"></span>
+      </button>
+    </nav>
+    <dialog
+      class="BurgerMenu"
+      id="BurgerMenu"
+      aria-label="Site menu"
+      data-lenis-prevent
+    >
+      <nav class="BurgerNav" aria-label="Site navigation">
+        <a class="BurgerLink" href="./" aria-label="Home"
+          ><span class="BurgerLinkText" aria-hidden="true"
+            >H<span class="fontItalic">O</span
+            ><span class="fontPixel">M</span>E</span
+          ></a
+        >
+        <a class="BurgerLink" href="./portfolio/" aria-label="Portfolio"
+          ><span class="BurgerLinkText" aria-hidden="true"
+            >P<span class="fontItalic">O</span
+            ><span class="fontPixel">R</span>TF<span class="fontPixel">O</span
+            >LIO</span
+          ></a
+        >
+        <a class="BurgerLink" href="./contact/" aria-label="Contact"
+          ><span class="BurgerLinkText" aria-hidden="true"
+            ><span class="fontPixel">C</span
+            ><span class="fontItalic">O</span>NT<span class="fontPixel">A</span
+            >CT</span
+          ></a
+        >
+      </nav>
+      <div class="SocialWrapper BurgerSocials">
+        <a
+          class="SocialButton"
+          href="https://instagram.com/samwalkerdesign"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Instagram"
+          ><svg class="SocialLogos" viewBox="0 0 85 85" aria-hidden="true">
+            <use href="./SVG/InstagramLogo.svg#Layer_2"></use></svg
+        ></a>
+        <a
+          class="SocialButton"
+          href="https://www.linkedin.com/in/samwalkerdesign/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn"
+          ><svg class="SocialLogos" viewBox="0 0 80 80" aria-hidden="true">
+            <use href="./SVG/LinkedInLogo.svg#Layer_2"></use></svg
+        ></a>
+        <a
+          class="SocialButton"
+          href="mailto:samwdsn@gmail.com"
+          aria-label="Email"
+          ><svg class="SocialLogos" viewBox="0 0 80 65" aria-hidden="true">
+            <use href="./SVG/Email.svg#Layer_2"></use></svg
+        ></a>
+        <div class="SocialButton">
+          <svg class="SocialLogos" viewBox="0 0 80 80" aria-hidden="true">
+            <use href="./SVG/Location.svg#Layer_2"></use></svg
+          ><span class="FooterMCR"
+            ><span class="locationFull">Manchester</span
+            ><span class="locationShort">MCR</span>, UK</span
+          >
+        </div>
+      </div>
+    </dialog>
+    <main>
+      <div class="splashParallax">
+        <section class="splashSection">
+          <nav class="splashNav">
+            <div class="splashNavItem01 iconLocation">
+              <span class="locationFull">Manchester</span
+              ><span class="locationShort">MCR</span>, UK
+            </div>
+            <a href="./portfolio/" class="splashNavItem02 iconExternal">
+              View Portfolio
+            </a>
+
+            <a href="./contact/" class="splashNavItem03 iconArrow">
+              Contact Me
+            </a>
+          </nav>
+
+          <div class="splashSVGContainer">
+            <span class="svgFrame svgFrame01 is-active"></span>
+            <span class="svgFrame svgFrame02"></span>
+            <span class="svgFrame svgFrame03"></span>
+            <span class="svgFrame svgFrame04"></span>
+          </div>
+
+          <div class="splashCopyContainer">
+            <div class="splashLine01">
+              <span class="revealWord"
+                >F<span class="fontItalic">O</span
+                ><span class="fontPixel">R</span></span
+              ><span class="revealWord highlight"
+                >A<span class="fontPixel">M</span>BITI<span class="fontItalic"
+                  >O</span
+                >US</span
+              >
+            </div>
+            <div class="splashLine02">
+              <span class="revealWord"
+                >GL<span class="fontItalic">O</span
+                ><span class="fontPixel">B</span>AL</span
+              ><span class="revealWord"
+                >B<span class="fontPixel">R</span>AND<span class="fontPixel"
+                  >S</span
+                >.</span
+              >
+            </div>
+          </div>
+        </section>
+        <section class="belowTheFoldSection">
+          <div class="btfVideo">
+            <div class="mainContentBTF">
+              <video
+                class="mainContentVideo"
+                autoplay
+                loop
+                muted
+                playsinline
+                preload="auto"
+                poster="/images/SWD_AI_PortfolioVideo_Poster.webp"
+              >
+                <!-- <source src="./videos/WebVidsCrops-FLAT 2.mp4" type="video/mp4" /> -->
+                <source
+                  src="./videos/SWD_AI_PortfolioVideo.mp4"
+                  type="video/mp4"
+                />
+              </video>
+            </div>
+          </div>
+          <div class="btfText secondContentBTF">
+            <div class="headingBTFContainer">
+              <h2 class="headingBTF" aria-label="Design that delivers.">
+                <span class="headingBTFWord" aria-hidden="true"
+                  >DESI<span class="fontPixel">G</span>N</span
+                >
+                <span class="headingBTFWord" aria-hidden="true"
+                  >TH<span class="fontPixel">A</span>T</span
+                >
+                <span class="headingBTFWord" aria-hidden="true"
+                  ><span class="fontPixel">D</span>ELIVE<span class="fontPixel"
+                    >R</span
+                  >S.</span
+                >
+              </h2>
+            </div>
+            <p class="paragraphBTF">
+              Launching something <b>new and ambitious,</b> or outgrowing your
+              current identity and <b>struggling to stand out?</b> <br />
+              <br />From brand identities and websites to creative campaigns and
+              motion content, every project is crafted around your brand’s
+              goals. Each collaboration goes beyond handing over a collection of
+              assets — it involves design that embraces strategy and carefully
+              considers how each visual connects with your audience.
+              <br />
+              <br />
+              Your brand deserves more than just design that looks good. I
+              provide design that communicates clearly, design that engages the
+              right audience and, most importantly,
+              <strong class="highlight">design that delivers.</strong>
+            </p>
+          </div>
+        </section>
+      </div>
+      <section
+        id="portfolio"
+        class="PortfolioSection"
+        aria-label="Selected projects"
+      >
+        <!-- Brand Design -->
+        <div class="PfolMAIN">
+          <h2 class="Pfol_SectionTab fontPixel">Brand Design</h2>
+          <div class="PfolSectionRight">
+            <h2 class="Pfol_ProjectHeading">
+              <a
+                href="./case-studies/sizzle-society/"
+                class="Pfol_ProjectHeader"
+                data-image="./images/portfolio/sizzle-society/Branding_Sizzle_01.jpg"
+              >
+                <span class="Pfol_ProjectTitle">"Sizzle Society"</span>
+                <span class="ViewProjectButton">
+                  <span
+                    >View<span class="ViewProjectLabelSuffix">
+                      Project</span
+                    ></span
+                  >
+                </span>
+              </a>
+            </h2>
+            <h2 class="Pfol_ProjectHeading">
+              <a
+                href="./case-studies/spicy-marg-studio-branding/"
+                class="Pfol_ProjectHeader"
+                data-image="./images/portfolio/spicy-marg-studio/PF_SpicyB_04.jpg"
+              >
+                <span class="Pfol_ProjectTitle">"Spicy Marg Studio"</span>
+                <span class="ViewProjectButton">
+                  <span
+                    >View<span class="ViewProjectLabelSuffix">
+                      Project</span
+                    ></span
+                  >
+                </span>
+              </a>
+            </h2>
+            <h2 class="Pfol_ProjectHeading">
+              <a
+                href="./case-studies/chemistry-industry-branding/"
+                class="Pfol_ProjectHeader"
+                data-image="./images/portfolio/chemistry-industry/Brand_Chemind_01.jpg"
+              >
+                <span class="Pfol_ProjectTitle">"Chemistry + Industry"</span>
+                <span class="ViewProjectButton">
+                  <span
+                    >View<span class="ViewProjectLabelSuffix">
+                      Project</span
+                    ></span
+                  >
+                </span>
+              </a>
+            </h2>
+            <h2 class="Pfol_ProjectHeading">
+              <a
+                href="./case-studies/manuka-skin/"
+                class="Pfol_ProjectHeader"
+                data-image="./images/portfolio/manuka-skin/PF_Manuka_01.jpg"
+              >
+                <span class="Pfol_ProjectTitle">"Manuka Skin"</span>
+                <span class="ViewProjectButton">
+                  <span
+                    >View<span class="ViewProjectLabelSuffix">
+                      Project</span
+                    ></span
+                  >
+                </span>
+              </a>
+            </h2>
+            <h2 class="Pfol_ProjectHeading">
+              <a
+                href="./case-studies/ace-face/"
+                class="Pfol_ProjectHeader"
+                data-image="./images/portfolio/ace-face/PF_AF_01.jpg"
+              >
+                <span class="Pfol_ProjectTitle">"Ace Face"</span>
+                <span class="ViewProjectButton">
+                  <span
+                    >View<span class="ViewProjectLabelSuffix">
+                      Project</span
+                    ></span
+                  >
+                </span>
+              </a>
+            </h2>
+            <h2 class="Pfol_ProjectHeading">
+              <a
+                href="./case-studies/muscle-fuel-kitchen/"
+                class="Pfol_ProjectHeader"
+                data-image="./images/portfolio/muscle-fuel-kitchen/PF_MFK_01.jpg"
+              >
+                <span class="Pfol_ProjectTitle">"Muscle Fuel Kitchen"</span>
+                <span class="ViewProjectButton">
+                  <span
+                    >View<span class="ViewProjectLabelSuffix">
+                      Project</span
+                    ></span
+                  >
+                </span>
+              </a>
+            </h2>
+          </div>
+        </div>
+
+        <!-- Web Design -->
+        <div class="PfolMAIN">
+          <h2 class="Pfol_SectionTab fontPixel">Web Design</h2>
+          <div class="PfolSectionRight">
+            <h2 class="Pfol_ProjectHeading">
+              <a
+                href="./case-studies/fx-notes/"
+                class="Pfol_ProjectHeader"
+                data-image="./images/portfolio/fx-notes/PF_FXN_01.jpg"
+              >
+                <span class="Pfol_ProjectTitle">"FX Notes"</span>
+                <span class="ViewProjectButton">
+                  <span
+                    >View<span class="ViewProjectLabelSuffix">
+                      Project</span
+                    ></span
+                  >
+                </span>
+              </a>
+            </h2>
+            <h2 class="Pfol_ProjectHeading">
+              <a
+                href="./case-studies/freedom-media-group/"
+                class="Pfol_ProjectHeader"
+                data-image="./images/portfolio/freedom-media-group/PF_FMG_01.jpg"
+              >
+                <span class="Pfol_ProjectTitle">"Freedom Media Group"</span>
+                <span class="ViewProjectButton">
+                  <span
+                    >View<span class="ViewProjectLabelSuffix">
+                      Project</span
+                    ></span
+                  >
+                </span>
+              </a>
+            </h2>
+            <h2 class="Pfol_ProjectHeading">
+              <a
+                href="./case-studies/angels-mgmt/"
+                class="Pfol_ProjectHeader"
+                data-image="./images/portfolio/angels-mgmt/Angels_01.jpg"
+              >
+                <span class="Pfol_ProjectTitle">"Angels MGMT"</span>
+                <span class="ViewProjectButton">
+                  <span
+                    >View<span class="ViewProjectLabelSuffix">
+                      Project</span
+                    ></span
+                  >
+                </span>
+              </a>
+            </h2>
+            <h2 class="Pfol_ProjectHeading">
+              <a
+                href="./case-studies/chemistry-industry-web/"
+                class="Pfol_ProjectHeader"
+                data-image="./images/portfolio/chemistry-industry/PF_ChemWeb_01.jpg"
+              >
+                <span class="Pfol_ProjectTitle">"Chemistry + Industry"</span>
+                <span class="ViewProjectButton">
+                  <span
+                    >View<span class="ViewProjectLabelSuffix">
+                      Project</span
+                    ></span
+                  >
+                </span>
+              </a>
+            </h2>
+            <h2 class="Pfol_ProjectHeading">
+              <a
+                href="./case-studies/spicy-marg-studio-web/"
+                class="Pfol_ProjectHeader"
+                data-image="./images/portfolio/spicy-marg-studio/PF_SpicyWeb_01.jpg"
+              >
+                <span class="Pfol_ProjectTitle">"Spicy Marg Studio"</span>
+                <span class="ViewProjectButton">
+                  <span
+                    >View<span class="ViewProjectLabelSuffix">
+                      Project</span
+                    ></span
+                  >
+                </span>
+              </a>
+            </h2>
+            <h2 class="Pfol_ProjectHeading">
+              <a
+                href="./case-studies/the-ugc-agency/"
+                class="Pfol_ProjectHeader"
+                data-image="./images/portfolio/the-ugc-agency/PF_UGC_01.jpg"
+              >
+                <span class="Pfol_ProjectTitle">"The UGC Agency"</span>
+                <span class="ViewProjectButton">
+                  <span
+                    >View<span class="ViewProjectLabelSuffix">
+                      Project</span
+                    ></span
+                  >
+                </span>
+              </a>
+            </h2>
+          </div>
+        </div>
+
+        <!-- Various -->
+        <div class="PfolMAIN">
+          <h2 class="Pfol_SectionTab fontPixel">Various</h2>
+          <div class="PfolSectionRight">
+            <h2 class="Pfol_ProjectHeading">
+              <a
+                href="./case-studies/tea4you/"
+                class="Pfol_ProjectHeader"
+                data-image="./images/portfolio/tea4you/PF_T4_01.jpg"
+              >
+                <span class="Pfol_ProjectTitle">"Tea4You"</span>
+                <span class="ViewProjectButton">
+                  <span
+                    >View<span class="ViewProjectLabelSuffix">
+                      Project</span
+                    ></span
+                  >
+                </span>
+              </a>
+            </h2>
+            <h2 class="Pfol_ProjectHeading">
+              <a
+                href="./case-studies/citrus-twist/"
+                class="Pfol_ProjectHeader"
+                data-image="./images/portfolio/citrus-twist/PF_CT_01.jpg"
+              >
+                <span class="Pfol_ProjectTitle">"Citrus Twist"</span>
+                <span class="ViewProjectButton">
+                  <span
+                    >View<span class="ViewProjectLabelSuffix">
+                      Project</span
+                    ></span
+                  >
+                </span>
+              </a>
+            </h2>
+          </div>
+        </div>
+
+        <div class="PreviewImage" aria-hidden="true"></div>
+      </section>
+    </main>
+    <footer id="contact" class="FooterSection">
+      <div class="FooterMain">
+        <div class="FooterLeft">
+          <div class="FooterGiT">
+            <h2 aria-label="Contact me">
+              <span class="FooterWords" aria-hidden="true"
+                ><span class="FooterWord"
+                  >C<span class="fontPixel">O</span>NT<span class="fontItalic"
+                    >A</span
+                  >CT</span
+                ><span class="FooterWord"
+                  ><span class="fontPixel">M</span>E</span
+                ></span
+              >
+              <span class="FooterArrow" aria-hidden="true"></span>
+            </h2>
+          </div>
+          <div class="SocialWrapper">
+            <a
+              class="SocialButton"
+              href="https://instagram.com/samwalkerdesign"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+            >
+              <svg class="SocialLogos" viewBox="0 0 85 85" aria-hidden="true">
+                <use href="./SVG/InstagramLogo.svg#Layer_2"></use>
+              </svg>
+            </a>
+            <a
+              class="SocialButton"
+              href="https://www.linkedin.com/in/samwalkerdesign/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+            >
+              <svg class="SocialLogos" viewBox="0 0 80 80" aria-hidden="true">
+                <use href="./SVG/LinkedInLogo.svg#Layer_2"></use>
+              </svg>
+            </a>
+            <a
+              class="SocialButton"
+              href="mailto:samwdsn@gmail.com"
+              aria-label="Email"
+            >
+              <svg class="SocialLogos" viewBox="0 0 80 65" aria-hidden="true">
+                <use href="./SVG/Email.svg#Layer_2"></use>
+              </svg>
+            </a>
+            <div class="SocialButton">
+              <svg class="SocialLogos" viewBox="0 0 80 80" aria-hidden="true">
+                <use href="./SVG/Location.svg#Layer_2"></use>
+              </svg>
+              <span class="FooterMCR"
+                ><span class="locationFull">Manchester</span
+                ><span class="locationShort">MCR</span>, UK</span
+              >
+            </div>
+          </div>
+        </div>
+        <div class="FooterRight">
+          <form
+            target="_blank"
+            action="https://formsubmit.co/samwdsn@gmail.com"
+            method="POST"
+          >
+            <label class="VisuallyHidden" for="contact-name">Name</label>
+            <input
+              id="contact-name"
+              name="name"
+              type="text"
+              class="FormField"
+              placeholder="Name"
+              autocomplete="name"
+              required
+            />
+            <label class="VisuallyHidden" for="contact-email">Email</label>
+            <input
+              id="contact-email"
+              name="email"
+              type="email"
+              class="FormField"
+              placeholder="Email"
+              autocomplete="email"
+              required
+            />
+            <label class="VisuallyHidden" for="contact-message">Message</label>
+            <textarea
+              id="contact-message"
+              name="message"
+              class="FormField"
+              placeholder="Message"
+              required
+            ></textarea>
+            <button class="SendButton" type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
+      <div class="FooterBottom">
+        <p class="FooterTXT">
+          © Sam Walker | All Rights Reserved |
+          <span class="currentYear">2026</span>
+        </p>
+        <a class="FooterPolicy" href="./terms-policy/">Terms &amp; Policy</a>
+      </div>
+    </footer>
+  </body>
+</html>

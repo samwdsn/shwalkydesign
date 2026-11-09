@@ -1,0 +1,1991 @@
+/*
+  ==========================================================================
+  Fonts
+  ==========================================================================
+  */
+@font-face {
+  font-family: "Inter Display";
+  src: url("./fonts/InterDisplay-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter Display";
+  src: url("./fonts/InterDisplay-Italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter Display";
+  src: url("./fonts/InterDisplay-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter Display";
+  src: url("./fonts/InterDisplay-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter Display";
+  src: url("./fonts/InterDisplay-BoldItalic.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cofo Sans";
+  src: url("./fonts/CofoSans-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ========================================================================== 
+   Variables
+   ========================================================================== */
+
+:root {
+  --highlight: #ff2200;
+  /* --highlight: blue; */
+  --dark: #0c0c0c;
+  --light: #bfbfbf;
+  --neutral: #777777;
+  --neutralD: #202020;
+  --white: #ffffff;
+  --background: #000000;
+}
+
+/* ========================================================================== 
+   Reset
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+p,
+h1,
+h2,
+h3,
+h4 {
+  overflow-wrap: break-word;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  text-wrap: balance;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  padding: 0;
+  border: 0;
+  color: inherit;
+  background: none;
+  cursor: pointer;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Released only after fonts and the animation starting states are ready. */
+.splash-fonts-loading .pageNav,
+.splash-fonts-loading main,
+.splash-fonts-loading footer {
+  opacity: 0;
+}
+
+.portfolioRevealLine,
+.caseStudyTitleLine {
+  overflow: visible;
+}
+
+body {
+  min-height: 100svh;
+  margin: 0;
+  font-family: "Inter Display", Arial, sans-serif;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+
+  background-color: var(--background);
+}
+
+.VisuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.highlight {
+  color: var(--highlight);
+}
+
+/* ==========================================================================
+   Burger menu — Web27 styling with mixed-font labels
+   ========================================================================== */
+
+.BurgerButton {
+  touch-action: manipulation;
+}
+
+.BurgerButton:focus-visible .BurgerLine::after {
+  clip-path: inset(0 100% 0 0);
+}
+
+.BurgerButton.is-open .BurgerLine:first-child {
+  transform: translateY(5px) rotate(45deg);
+}
+
+.BurgerButton.is-open .BurgerLine:last-child {
+  width: 40px;
+  transform: translateY(-5px) rotate(-45deg);
+}
+
+.BurgerMenu {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 100px 10vw 60px;
+  border: 0;
+  background: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--white);
+  overflow-y: auto;
+}
+
+.BurgerMenu[open] {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 90px;
+}
+
+.BurgerMenu::backdrop {
+  background: transparent;
+}
+
+.BurgerMenu .BurgerButton {
+  position: fixed;
+  top: 20px;
+  right: 4vw;
+  z-index: 1;
+}
+
+.BurgerNav {
+  display: flex;
+  flex-direction: column;
+}
+
+.BurgerLink {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 30px 20px;
+  border-top: 1px solid var(--neutralD);
+  font-family: "Inter Display", Arial, sans-serif;
+  font-size: clamp(32px, 3vw, 120px);
+  font-weight: 400;
+  line-height: 1;
+  text-transform: uppercase;
+  transition: color 0.4s ease;
+}
+
+.BurgerLinkText {
+  display: block;
+  white-space: nowrap;
+}
+
+.BurgerLink:last-child {
+  border-bottom: 1px solid var(--neutralD);
+}
+
+.BurgerLink::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;
+  z-index: -1;
+  background: var(--highlight);
+  transition: height 0.4s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.BurgerLink::after {
+  content: "\2197";
+  font-size: 0.5em;
+}
+
+.BurgerLink:focus-visible::before {
+  height: 100%;
+}
+
+.BurgerLink:focus-visible {
+  color: var(--dark);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .BurgerButton:hover .BurgerLine::after {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  .BurgerLink:hover::before {
+    height: 100%;
+  }
+
+  .BurgerLink:hover {
+    color: var(--dark);
+  }
+}
+
+.BurgerSocials {
+  width: 100%;
+  min-width: 0;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 30px;
+  padding: 0 20px;
+}
+
+/* Burger menu — responsive */
+@media (width <= 768px) {
+  .BurgerMenu {
+    padding: 90px 5vw 40px;
+  }
+
+  .BurgerLink {
+    padding: 25px 10px;
+    font-size: 9vw;
+  }
+
+  .BurgerSocials {
+    padding: 0 10px;
+    gap: 20px;
+  }
+}
+
+/* ========================================================================== 
+Page Nav
+   ========================================================================== */
+
+.pageNav {
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  min-height: 84px;
+
+  padding: 20px 4vw;
+  z-index: 1000;
+}
+
+.pageNavLogo {
+  display: flex;
+  align-items: center;
+  gap: 0.75em;
+}
+
+.pageNavLogoMark,
+.pageNavLogoType {
+  display: block;
+  flex: none;
+  background-color: currentColor;
+  mask: var(--logo) center / contain no-repeat;
+  -webkit-mask: var(--logo) center / contain no-repeat;
+}
+
+.pageNavLogoMark {
+  --logo: url("./SVG/SWDLOGO_200.svg");
+
+  width: auto;
+  height: 40px;
+  aspect-ratio: 195.26 / 200;
+  color: var(--highlight);
+}
+
+.pageNavLogoType {
+  --logo: url("./SVG/SAMWAL_Typog.svg");
+
+  width: auto;
+  height: 15px;
+  aspect-ratio: 769.46 / 100;
+  color: var(--white);
+}
+
+.BurgerButton {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 8px;
+  width: 44px;
+  height: 44px;
+  color: var(--white);
+}
+
+.BurgerLine {
+  position: relative;
+  display: block;
+  width: 40px;
+  height: 2px;
+  background: var(--highlight);
+  transition:
+    width 0.5s ease,
+    transform 0.5s ease;
+}
+
+.BurgerLine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  clip-path: inset(0);
+  transition: clip-path 0.6s ease;
+}
+
+.BurgerLine:last-child {
+  width: 30px;
+}
+
+/* ========================================================================== 
+   Splash
+   ========================================================================== */
+
+.splashParallax {
+  position: relative;
+}
+
+.splashSection {
+  position: sticky;
+  top: 0;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  /* min-height: 100svh; */
+
+  padding: 15svh 5vw 8svh 5vw;
+  overflow: hidden;
+
+  color: var(--white);
+}
+
+.splashSVGContainer {
+  position: relative;
+
+  width: min(82vw, 100rem);
+  aspect-ratio: 1440 / 540;
+
+  margin-top: -1vw;
+}
+
+.svgFrame {
+  --frame: none;
+
+  position: absolute;
+  inset: 0;
+  display: block;
+  visibility: hidden;
+  background: currentColor;
+  mask: var(--frame) center / contain no-repeat;
+  -webkit-mask: var(--frame) center / contain no-repeat;
+}
+
+.svgFrame.is-active {
+  visibility: visible;
+}
+
+.svgFrame01 {
+  --frame: url("./SVG/TypogSVGS/DSN_Typog_01.svg");
+}
+.svgFrame02 {
+  --frame: url("./SVG/TypogSVGS/DSN_Typog_02.svg");
+}
+.svgFrame03 {
+  --frame: url("./SVG/TypogSVGS/DSN_Typog_03.svg");
+}
+.svgFrame04 {
+  --frame: url("./SVG/TypogSVGS/DSN_Typog_04.svg");
+}
+
+.fontPixel {
+  font-family: "Cofo Sans", sans-serif;
+  font-size: 107%;
+}
+
+.fontItalic {
+  font-family: "Inter Display", Arial, sans-serif;
+  font-size: 100%;
+  font-style: italic;
+}
+
+.splashCopyContainer {
+  display: flex;
+  flex-direction: column;
+  /* font-size: clamp(1.25rem, 3.5vw, 4.5rem); */
+  font-size: 3.75em;
+  line-height: 1.05;
+
+  margin-top: -5vw;
+}
+
+.splashLine01,
+.splashLine02 {
+  /* text-align: center; */
+  white-space: nowrap;
+}
+
+.revealWord {
+  display: inline-block;
+}
+
+.revealWord + .revealWord {
+  margin-left: 0.25em;
+}
+
+.splashLine01 {
+  margin-left: -4vw;
+}
+
+.splashLine02 {
+  margin-left: 8vw;
+}
+
+/* ========================================================================== 
+   Splash Nav
+   ========================================================================== */
+
+.splashNav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 50%;
+  min-width: 600px;
+
+  font-size: 0.95em;
+  color: var(--white);
+
+  z-index: 100;
+}
+
+.splashNavItem01,
+.splashNavItem02,
+.splashNavItem03 {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25em;
+
+  /* cursor: pointer; */
+
+  transition: color 0.3s ease;
+}
+
+.splashNavItem02:hover,
+.splashNavItem03:hover {
+  color: var(--highlight);
+}
+
+.iconLocation::after,
+.iconExternal::after,
+.iconArrow::after,
+.iconReturn::after {
+  font-family: inherit;
+  display: inline-block;
+
+  transition: transform 0.3s ease;
+}
+
+.iconLocation::after {
+  font-weight: 600;
+  color: var(--highlight);
+  content: "⌖";
+
+  transform: translateY(-0.1em);
+}
+
+.iconExternal::after {
+  content: "↗";
+}
+
+.iconArrow::after {
+  content: "→";
+}
+
+.iconReturn::after {
+  content: "\21A9";
+}
+
+.iconReturn:hover::after {
+  transform: translateX(0.25em);
+}
+
+.iconExternal:hover::after {
+  transform: translate(0.15em, -0.15em);
+}
+
+.iconArrow:hover::after {
+  transform: translateX(0.25em);
+}
+
+/* ========================================================================== 
+   BelowTheFold
+   ========================================================================== */
+
+.belowTheFoldSection {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: flex-start;
+
+  width: 100%;
+  min-height: 100svh;
+
+  padding: 0;
+  overflow: hidden;
+
+  color: var(--white);
+}
+
+.btfVideo {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding-inline: 5vw;
+  background-color: var(--background);
+}
+
+.mainContentBTF {
+  display: flex;
+  width: 85%;
+  /* height: 80svh; */
+  aspect-ratio: 16/9;
+  overflow: hidden;
+}
+
+.mainContentVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.secondContentBTF {
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  padding: 10svh 7.5vw;
+
+  gap: 40px;
+
+  background-color: var(--background);
+}
+
+.headingBTFContainer {
+  width: 50%;
+  flex-shrink: 0;
+}
+
+.headingBTF {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 0.25em;
+  font-size: 3.75em;
+  font-weight: 400;
+  line-height: 1.05;
+  color: var(--neutralD);
+
+  white-space: normal;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+.headingBTFWord {
+  white-space: nowrap;
+}
+
+.headingBTFWord:nth-child(3) {
+  flex-basis: 100%;
+  margin-left: 12vw;
+}
+
+.paragraphBTF {
+  width: 50%;
+  max-width: 380px;
+
+  font-size: 0.95em;
+  line-height: 1.6em;
+  text-align: justify;
+
+  margin-top: 20px;
+}
+
+/* ========================================================================== 
+   Portfolio headers and preview
+   ========================================================================== */
+
+.PortfolioSection {
+  position: relative;
+  z-index: 1;
+  padding: 20px 5vw;
+  background: var(--background);
+  overflow-anchor: none;
+}
+
+.PfolMAIN {
+  display: flex;
+  width: 100%;
+}
+
+.PfolMAIN + .PfolMAIN {
+  margin-top: 10svh;
+}
+
+.Pfol_SectionTab {
+  position: sticky;
+  top: 10svh;
+  align-self: flex-start;
+  flex-shrink: 0;
+  width: 1em;
+  height: max-content;
+  padding-right: 3em;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  color: var(--neutral);
+  font-size: 1em;
+  font-weight: 400;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.Pfol_SectionTab::before {
+  content: "";
+  flex: none;
+  width: 6px;
+  height: 6px;
+  background: var(--highlight);
+}
+
+.PfolSectionRight {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.Pfol_ProjectHeading {
+  width: 100%;
+  font-size: 1em;
+  font-weight: 400;
+}
+
+.Pfol_ProjectHeader {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 100%;
+  padding: 40px 20px;
+  border-top: 1px solid var(--neutralD);
+  overflow: hidden;
+  color: var(--white);
+  font-size: 1em;
+  text-align: left;
+  cursor: pointer;
+}
+
+.Pfol_ProjectHeader:focus-visible {
+  outline: 2px solid var(--highlight);
+  outline-offset: 4px;
+}
+
+.Pfol_ProjectHeader::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  background: var(--white);
+  transition: height 0.4s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.Pfol_ProjectTitle,
+.ViewProjectButton {
+  position: relative;
+  z-index: 1;
+  transition: color 0.2s ease;
+}
+
+.ViewProjectButton {
+  display: flex;
+  justify-self: end;
+  align-items: center;
+  gap: 0.5em;
+  color: var(--light);
+  white-space: nowrap;
+}
+
+.ViewProjectButton::after {
+  content: "\2197";
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .Pfol_ProjectHeader:hover::before {
+    height: 100%;
+  }
+
+  .Pfol_ProjectHeader:hover .Pfol_ProjectTitle,
+  .Pfol_ProjectHeader:hover .ViewProjectButton {
+    color: var(--neutralD);
+  }
+
+  .Pfol_ProjectHeader:hover .ViewProjectButton:hover {
+    color: var(--highlight);
+  }
+
+  .ViewProjectButton:hover::after {
+    transform: translate(5px, -5px);
+  }
+}
+
+.PreviewImage {
+  position: fixed;
+  top: 50svh;
+  left: 50%;
+  z-index: 2;
+  height: 500px;
+  aspect-ratio: 4 / 5;
+  border-radius: 4px;
+  transform: translate(-50%, -50%);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 0.1s ease;
+  pointer-events: none;
+}
+
+.PreviewImage.visible {
+  opacity: 1;
+}
+
+/* ========================================================================== 
+   Footer — desktop
+   ========================================================================== */
+
+.FooterSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 70svh;
+  padding: 10svh 5vw;
+  border-top: 1px solid var(--neutralD);
+  border-bottom: 20px solid var(--highlight);
+  color: var(--white);
+}
+
+.FooterMain {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  gap: 5vw;
+}
+
+.FooterLeft {
+  display: flex;
+  flex-direction: column;
+  gap: max(0px, 3vw);
+  width: 50%;
+}
+
+.FooterRight {
+  display: flex;
+  justify-content: flex-end;
+  width: 50%;
+}
+
+.FooterGiT h2 {
+  display: flex;
+  align-items: baseline;
+  gap: 0.15em;
+  font-family: "Inter Display", Arial, sans-serif;
+  font-size: max(2.5em, 4.5vw);
+  font-weight: 400;
+  line-height: 1.05;
+}
+
+.FooterWords {
+  display: inline-flex;
+  gap: 0.25em;
+}
+
+.FooterWord {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.FooterArrow {
+  display: inline-block;
+}
+
+.FooterArrow::before {
+  content: "\2192";
+  display: inline-block;
+  font-family: "Inter Display", Arial, sans-serif;
+  font-size: 1em;
+  letter-spacing: 0;
+}
+
+.SocialWrapper {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 35vw;
+  min-width: 300px;
+  padding-block: 20px;
+  font-size: 13px;
+  color: var(--neutral);
+  text-transform: uppercase;
+}
+
+.SocialLogos {
+  width: 22px;
+  height: auto;
+  fill: var(--neutral);
+  transition:
+    fill 0.3s,
+    transform 0.3s;
+}
+
+.SocialButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin: 0;
+  cursor: pointer;
+}
+
+.SocialButton:hover .SocialLogos {
+  fill: var(--highlight);
+  transform: scale(1.2);
+}
+
+.locationShort {
+  display: none;
+}
+
+.FooterRight form,
+.contactRight form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 80%;
+  min-width: 340px;
+
+  font-size: 13px;
+}
+
+.FormField {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 25px;
+  font-family: inherit;
+  color: var(--white);
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid var(--neutral);
+  transition: border-color 0.3s;
+}
+
+.FormField::placeholder {
+  color: var(--neutral);
+}
+
+.FormField:focus {
+  outline: none;
+  border-bottom-color: var(--highlight);
+}
+
+textarea.FormField {
+  min-height: 80px;
+  max-height: 350px;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.SendButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 50px;
+  color: var(--dark);
+  background-color: var(--highlight);
+  outline: 1px solid transparent;
+  text-transform: uppercase;
+  transition:
+    background-color 0.3s,
+    color 0.3s,
+    outline-color 0.3s;
+}
+
+.SendButton:hover {
+  background-color: var(--dark);
+  color: var(--highlight);
+  outline-color: var(--highlight);
+}
+
+.SendButton::after {
+  content: "\21AA";
+  display: inline-block;
+  transition: transform 0.3s;
+}
+
+.SendButton:hover::after {
+  transform: translateX(5px);
+}
+
+.FooterSection a:focus-visible,
+.FooterSection button:focus-visible,
+.SendButton:focus-visible {
+  outline: 2px solid var(--highlight);
+  outline-offset: 4px;
+}
+
+.FooterBottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  margin-top: 100px;
+  font-size: 13px;
+  color: var(--neutral);
+}
+
+.FooterTXT {
+  margin: 0;
+}
+
+.FooterPolicy {
+  transition: color 0.3s ease;
+}
+
+.FooterPolicy:hover {
+  color: var(--highlight);
+}
+
+/* ========================================================================== 
+Responsive
+   ========================================================================== */
+
+@media (width <= 1280px) {
+  :root {
+    --highlight: #ffd900;
+  }
+
+  .PreviewImage {
+    left: 57.5%;
+  }
+}
+
+@media (width <= 1024px) {
+  :root {
+    --highlight: #0040ff;
+  }
+
+  .splashSection {
+    height: 90svh;
+    gap: 40px;
+  }
+
+  .splashSVGContainer {
+    width: min(90vw, 100rem);
+  }
+
+  .splashCopyContainer {
+    font-size: max(3.2em, 6vw);
+  }
+
+  .paragraphBTF {
+    width: 60%;
+    max-width: 60%;
+  }
+
+  .PreviewImage {
+    height: 360px;
+    left: 62.5%;
+  }
+
+  .headingBTF {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .headingBTFWord:nth-child(2) {
+    margin-left: 10vw;
+  }
+
+  .headingBTFWord:nth-child(3) {
+    flex-basis: auto;
+    margin-left: 5vw;
+  }
+}
+
+@media (width <= 768px) {
+  :root {
+    --highlight: #ff0084;
+  }
+
+  .splashNav {
+    width: 90%;
+    min-width: 90%;
+  }
+
+  .locationFull {
+    display: none;
+  }
+
+  .locationShort {
+    display: inline;
+  }
+
+  .secondContentBTF {
+    padding: 10svh 5vw;
+    gap: 20px;
+  }
+
+  .Pfol_ProjectHeader {
+    padding: 40px 10px;
+  }
+
+  .ViewProjectButton {
+    font-size: 14px;
+  }
+
+  .ViewProjectLabelSuffix {
+    display: none;
+  }
+
+  .PreviewImage {
+    top: 55svh;
+    left: 60%;
+    /* height: 260px; */
+  }
+
+  .headingBTFWord:nth-child(2) {
+    margin-left: 10vw;
+  }
+
+  .headingBTFWord:nth-child(3) {
+    flex-basis: auto;
+    margin-left: 2vw;
+  }
+
+  /* Footer */
+  .FooterSection {
+    height: auto;
+    align-items: center;
+  }
+
+  .FooterMain {
+    flex-direction: column;
+    gap: 60px;
+  }
+
+  .FooterLeft {
+    width: 100%;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .SocialWrapper {
+    width: 80%;
+  }
+
+  .FooterRight {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .FooterGiT h2 {
+    font-size: 10vw;
+  }
+
+  .FooterArrow::before {
+    content: "\2193";
+  }
+
+  .FooterSection .SocialButton {
+    align-items: flex-end;
+  }
+
+  .FooterRight form {
+    width: 90%;
+  }
+
+  .FooterBottom {
+    flex-direction: column-reverse;
+    text-align: center;
+    margin-top: 40px;
+  }
+}
+
+@media (width <= 640px) {
+  :root {
+    --highlight: #ff3600;
+  }
+
+  .Pfol_SectionTab {
+    padding-right: 2em;
+  }
+
+  .PreviewImage {
+    /* height: 220px; */
+    height: 52.5vw;
+  }
+
+  .pageNavLogoType {
+    display: none;
+  }
+
+  .splashNav {
+    display: none;
+    /* position: absolute;
+    top: 8svh;
+    width: 100%;
+    min-width: 100%;
+    padding: 0px 5vw; */
+  }
+
+  .splashSection {
+    max-height: 90svh;
+    height: 95svh;
+    padding: 10svh 5vw 2.5svh;
+    justify-content: flex-end;
+  }
+
+  .splashSVGContainer {
+    position: absolute;
+    top: 8svh;
+    right: 5vw;
+    width: auto;
+    height: 60svh;
+    aspect-ratio: 540 / 1440;
+    margin: 0;
+  }
+
+  .svgFrame01 {
+    --frame: url("./SVG/TypogSVGS/mobile/DSN_Typog_01.svg");
+  }
+
+  .svgFrame02 {
+    --frame: url("./SVG/TypogSVGS/mobile/DSN_Typog_02.svg");
+  }
+
+  .svgFrame03 {
+    --frame: url("./SVG/TypogSVGS/mobile/DSN_Typog_03.svg");
+  }
+
+  .svgFrame04 {
+    --frame: url("./SVG/TypogSVGS/mobile/DSN_Typog_04.svg");
+  }
+
+  .splashCopyContainer {
+    margin-top: 0px;
+    font-size: 3.25em;
+
+    width: 100%;
+  }
+
+  .splashLine01,
+  .splashLine02 {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .splashLine01 .revealWord:first-child {
+    margin-left: 0.1em;
+  }
+
+  .splashLine01 .revealWord:last-child {
+    margin-left: 0.5em;
+  }
+
+  .splashLine02 .revealWord:first-child {
+    margin-left: 0.2em;
+  }
+
+  .splashLine02 .revealWord:last-child {
+    margin-left: 1.3em;
+  }
+
+  .belowTheFoldSection {
+    height: auto;
+    padding: 0px 0px;
+  }
+
+  .btfVideo {
+    padding-inline: 0;
+  }
+
+  .mainContentBTF {
+    width: 100%;
+  }
+
+  .secondContentBTF {
+    padding: 10svh 5vw;
+  }
+
+  .secondContentBTF {
+    flex-direction: column;
+  }
+
+  .headingBTFContainer {
+    width: 100%;
+  }
+
+  .headingBTF {
+    font-size: 3.25em;
+  }
+
+  .paragraphBTF {
+    width: 70%;
+    max-width: 70%;
+    align-self: flex-end;
+
+    margin-top: 0px;
+  }
+}
+
+/* ==========================================================================
+   Contact
+   ========================================================================== */
+
+.contactSection {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100svh;
+  padding: 5vw;
+  color: var(--white);
+
+  border-bottom: 20px solid var(--highlight);
+}
+
+.contactLeft {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 50%;
+}
+
+.contactWords {
+  display: flex;
+  flex-direction: column;
+  font-size: 10em;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.contactWord {
+  white-space: nowrap;
+}
+
+.contactWord:nth-child(2) {
+  margin-left: 12vw;
+}
+
+.contactWord:nth-child(3) {
+  margin-left: 6vw;
+}
+
+.contactTouch::after {
+  content: "\2192";
+  margin-left: 0.25em;
+}
+
+.contactLeft .SocialWrapper {
+  margin-top: 3svh;
+  margin-left: 5vw;
+}
+
+.contactRight {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  /* margin-left: -25%; */
+  margin-bottom: 100px;
+}
+
+/* ==========================================================================
+   Contact — responsive
+   ========================================================================== */
+
+@media (width <= 1280px) {
+}
+
+@media (width <= 1024px) {
+  .contactWords {
+    font-size: 9em;
+  }
+}
+
+@media (width <= 768px) {
+  .contactSection {
+    height: auto;
+    min-height: 100svh;
+    padding-top: 10vw;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6svh;
+  }
+
+  .contactLeft,
+  .contactRight {
+    width: 100%;
+  }
+
+  .contactWords {
+    font-size: 18vw;
+  }
+
+  .contactWord:nth-child(2) {
+    margin-left: 22vw;
+  }
+
+  .contactWord:nth-child(3) {
+    margin-left: 6vw;
+  }
+
+  .contactTouch::after {
+    content: "\2193";
+    margin-left: 0.15em;
+  }
+
+  .contactRight {
+    margin: 0;
+    width: 100%;
+  }
+
+  .contactRight form {
+    width: 90%;
+    min-width: 0;
+  }
+
+  .contactLeft .SocialWrapper {
+    width: 80%;
+    min-width: 0;
+    margin-inline: auto;
+  }
+
+  .contactLeft .SocialButton {
+    align-items: flex-end;
+  }
+}
+
+@media (width <= 640px) {
+  /* Contact adjustments */
+}
+
+/* ==========================================================================
+   Portfolio page
+   ========================================================================== */
+
+.portfolioPage {
+  color: var(--white);
+}
+
+.portfolioSplash {
+  position: sticky;
+  top: 0;
+  z-index: 0;
+  isolation: isolate;
+  width: 100%;
+  /* height: 85svh; */
+  height: auto;
+  overflow: hidden;
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 10svh;
+}
+
+.portfolioSplashTitle {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  font-size: 24vw;
+  font-weight: 400;
+  line-height: 0.75;
+
+  gap: 20px;
+}
+
+.portfolioWord {
+  position: relative;
+  display: block;
+  flex: none;
+}
+
+.portfolioPort {
+  width: 3.05em;
+  aspect-ratio: 936 / 246;
+}
+
+.portfolioFolio {
+  width: 2.85em;
+  aspect-ratio: 894 / 246;
+}
+
+.portfolioSplashFrame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+  visibility: hidden;
+}
+
+.portfolioSplashFrame.is-active {
+  visibility: visible;
+}
+
+.portfolioSplashTitle > span:last-child {
+  align-self: flex-end;
+  z-index: 2;
+}
+
+.portfolioSplashImage {
+  position: absolute;
+  /* top: 10svh;
+  right: 10vw; */
+
+  bottom: 20%;
+  right: 6vw;
+  z-index: 1;
+  /* width: min(33vw, 60svh); */
+  width: max(450px, 30vw);
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.portfolioCategory,
+.portfolioPage .FooterSection {
+  position: relative;
+  z-index: 1;
+  background: var(--background);
+}
+
+.portfolioFeature {
+  display: flex;
+  align-items: flex-start;
+  gap: 2vw;
+  width: 100%;
+  padding: 10svh 5vw 5svh;
+}
+
+.portfolioFeature--reverse {
+  flex-direction: row-reverse;
+}
+
+.portfolioFeatureCopy {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  gap: 1em;
+
+  flex: 0 0 24%;
+  padding-right: 2vw;
+
+  text-wrap: pretty;
+}
+
+.portfolioFeatureTag {
+  color: var(--highlight);
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.portfolioFeatureCopy h2 {
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1.05;
+}
+
+.portfolioFeatureCopy > p:last-child {
+  font-size: 0.95em;
+  line-height: 1.4;
+
+  text-align: justify;
+
+  color: var(--light);
+}
+
+.portfolioFeatureTall,
+.portfolioFeatureWide {
+  flex: 1;
+  min-width: 0;
+}
+
+.portfolioFeature img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.portfolioFeatureTall img {
+  aspect-ratio: 4 / 5.5;
+}
+
+.portfolioFeatureWide img {
+  aspect-ratio: 3 / 2;
+}
+
+.portfolioFeature figcaption {
+  margin-top: 12px;
+  color: var(--light);
+  font-size: 10px;
+  text-transform: uppercase;
+
+  text-align: end;
+}
+
+.portfolioProjectList {
+  width: 100%;
+  padding-bottom: 10svh;
+}
+
+/* ==========================================================================
+   Portfolio page — responsive
+   ========================================================================== */
+
+@media (width <= 1280px) {
+  /* Portfolio adjustments */
+}
+
+@media (width <= 1024px) {
+  .portfolioFeatureCopy {
+    flex-basis: 28%;
+    padding-right: 0;
+  }
+
+  .portfolioSplashImage {
+    z-index: -2;
+  }
+}
+
+@media (768px < width <= 896px) {
+  .portfolioPage {
+    --highlight: #8a2be2;
+  }
+}
+
+@media (width <= 896px) {
+  .portfolioPage .portfolioFeature,
+  .portfolioPage .portfolioFeature--reverse {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 30px;
+    padding-top: 5svh;
+  }
+
+  .portfolioPage .portfolioFeatureWide {
+    order: 0;
+    width: 100%;
+    flex: auto;
+  }
+
+  .portfolioPage .portfolioFeatureCopy {
+    grid-column: 1 / -1;
+    order: 1;
+    flex: auto;
+    width: 100%;
+    align-self: center;
+  }
+}
+
+@media (width <= 768px) {
+  .portfolioSplash {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20svh 5vw 10svh 5vw;
+
+    height: auto;
+  }
+
+  .portfolioSplashImage {
+    position: relative;
+    top: auto;
+    bottom: auto;
+    right: auto;
+    order: -1;
+    align-self: flex-end;
+    width: 90%;
+    /* margin-right: 7.5vw;
+    margin-bottom: -4vw; */
+
+    margin: 0 auto;
+
+    max-height: 500px;
+  }
+
+  .portfolioSplashTitle {
+    position: relative;
+    bottom: auto;
+    font-size: 25.5vw;
+    line-height: 0.9;
+
+    margin-top: -30px;
+  }
+}
+
+@media (width <= 640px) {
+  .portfolioPage .portfolioFeature,
+  .portfolioPage .portfolioFeature--reverse {
+    grid-template-columns: 1fr;
+  }
+
+  .portfolioPage .portfolioFeatureTall {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   Case studies
+   ========================================================================== */
+
+.caseStudyPage {
+  color: var(--white);
+}
+
+.caseStudy {
+  --caseStudyGap: clamp(16px, 2vw, 32px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--caseStudyGap);
+  width: 100%;
+  padding: 15svh 5vw 10svh;
+}
+
+.caseStudyReturn {
+  align-self: flex-end;
+  margin-top: 40px;
+  font-size: 0.95em;
+}
+
+.caseStudyTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75em;
+  padding: 0;
+  margin: 0 0 20px;
+  list-style: none;
+  color: var(--highlight);
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.caseStudyTags li + li::before {
+  content: "/";
+  margin-right: 0.75em;
+}
+
+.caseStudyTitle {
+  max-width: 85%;
+  font-size: clamp(2.5rem, 4.75vw, 5rem);
+  font-weight: 400;
+  line-height: 1.05;
+}
+
+.caseStudyTitleWord {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.caseStudyIntroRow,
+.caseStudyGallery {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--caseStudyGap);
+}
+
+.caseStudyIntroRow {
+  align-items: end;
+}
+
+.caseStudyCopy {
+  grid-column: 1 / 5;
+  padding: 0;
+  min-width: 0;
+}
+
+.caseStudyImage01 {
+  grid-column: 5 / -1;
+  aspect-ratio: 1 / 1;
+}
+
+.caseStudy figure {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.caseStudy figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.caseStudyImage02 {
+  grid-column: 1 / 5;
+  position: relative;
+  align-self: stretch;
+}
+
+.caseStudyImage02 img {
+  position: absolute;
+  inset: 0;
+}
+
+.caseStudyContentB {
+  grid-column: 5 / -1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--caseStudyGap);
+  min-width: 0;
+}
+
+.caseStudyImagePair {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  align-items: start;
+  gap: var(--caseStudyGap);
+}
+
+.caseStudyImage03 {
+  aspect-ratio: 16 / 9;
+}
+
+.caseStudyImage04 {
+  aspect-ratio: 4 / 5;
+}
+
+.caseStudyCopyRow {
+  display: grid;
+  flex: none;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  align-items: end;
+  gap: var(--caseStudyGap);
+}
+
+/* ==========================================================================
+   Case studies — responsive
+   ========================================================================== */
+
+@media (width <= 1280px) {
+  /* Case-study adjustments */
+}
+
+@media (width <= 1024px) {
+  .caseStudyCopyRow {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (width <= 768px) {
+  .caseStudyPage .pageNavLogoType {
+    display: none;
+  }
+
+  .caseStudy {
+    padding-top: 15svh;
+    gap: 6svh;
+  }
+
+  .caseStudyTitle {
+    width: 100%;
+    max-width: 95%;
+    font-size: 9vw;
+  }
+
+  .caseStudyIntroRow {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 6svh;
+  }
+
+  .caseStudyImage01 {
+    width: 100%;
+  }
+
+  .caseStudyCopy {
+    width: 100%;
+    padding-inline: 5vw;
+  }
+
+  .caseStudyGallery {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 8svh;
+  }
+
+  .caseStudyContentB {
+    gap: 8svh;
+  }
+
+  .caseStudyCopyRow {
+    display: flex;
+    align-items: flex-start;
+    gap: 1em;
+  }
+
+  .caseStudyImage02 {
+    width: 100%;
+    aspect-ratio: 4 / 5.5;
+  }
+
+  .caseStudyPage .FooterRight form {
+    min-width: 0;
+  }
+}
+
+@media (width <= 640px) {
+  /* Case-study adjustments */
+}
+
+/* ==========================================================================
+   Coming soon
+   ========================================================================== */
+
+.comingSoon {
+  min-height: 100svh;
+  padding: 5vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  color: var(--white);
+}
+
+.comingSoonTitle {
+  display: flex;
+  flex-direction: column;
+  font-size: clamp(2rem, 3.5vw, 4rem);
+  font-weight: 400;
+  line-height: 1;
+}
+
+.comingSoonTitle > span:last-child {
+  margin-left: 1.25em;
+}
+
+.comingSoonReturn {
+  color: var(--highlight);
+  font-size: 0.95em;
+}
+
+.comingSoonReturn:hover {
+  color: var(--white);
+}
+
+.errorCopy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+
+.errorCopy p {
+  font-size: 0.95em;
+}

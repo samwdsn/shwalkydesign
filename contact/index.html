@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Web27 font loading: prepare fonts before revealing the page. -->
+    <link rel="preload" href="../fonts/InterDisplay-Regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="../fonts/InterDisplay-Italic.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="../fonts/CofoSans-Regular.woff2" as="font" type="font/woff2" crossorigin />
+    <script>
+      document.documentElement.classList.add("splash-fonts-loading");
+      window.splashFontFallback = setTimeout(() => {
+        document.documentElement.classList.remove("splash-fonts-loading");
+      }, 5000);
+      window.pageFontsReady = new Promise((resolve) => {
+        document.addEventListener("DOMContentLoaded", () => {
+          Promise.race([
+            document.fonts.ready,
+            new Promise((done) => setTimeout(done, 4000)),
+          ]).then(resolve);
+        }, { once: true });
+      });
+    </script>
+    <link rel="icon" type="image/png" href="/favicon.png?v=3" />
+    <meta property="og:image" content="https://samwalkerdesign.com/images/SocialSharing.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Sam Walker Design" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://samwalkerdesign.com/images/SocialSharing.jpg" />
+    <meta name="twitter:image:alt" content="Sam Walker Design" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Get in Touch | Sam Walker</title>
+    <meta name="description" content="Get in touch with Sam Walker to discuss brand identity, web design, packaging or your next creative project." />
+    <meta property="og:title" content="Get in Touch | Sam Walker" />
+    <meta property="og:description" content="Get in touch with Sam Walker to discuss brand identity, web design, packaging or your next creative project." />
+    <meta name="twitter:title" content="Get in Touch | Sam Walker" />
+    <meta name="twitter:description" content="Get in touch with Sam Walker to discuss brand identity, web design, packaging or your next creative project." />
+    <link rel="stylesheet" href="../main.css" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js" defer></script>
+    <script src="../main.js" defer></script>
+  </head>
+
+  <body class="contactPage">
+    <nav class="pageNav">
+      <a class="pageNavLogo" href="../" aria-label="Sam Walker — Home">
+        <span class="pageNavLogoMark" aria-hidden="true"></span>
+        <span class="pageNavLogoType" aria-hidden="true"></span>
+      </a>
+      <button class="BurgerButton" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="BurgerMenu">
+        <span class="BurgerLine"></span>
+        <span class="BurgerLine"></span>
+      </button>
+    </nav>
+
+    <dialog class="BurgerMenu" id="BurgerMenu" aria-label="Site menu" data-lenis-prevent>
+      <nav class="BurgerNav" aria-label="Site navigation">
+        <a class="BurgerLink" href="../" aria-label="Home"><span class="BurgerLinkText" aria-hidden="true">H<span class="fontItalic">O</span><span class="fontPixel">M</span>E</span></a>
+        <a class="BurgerLink" href="../portfolio/" aria-label="Portfolio"><span class="BurgerLinkText" aria-hidden="true">P<span class="fontItalic">O</span><span class="fontPixel">R</span>TF<span class="fontPixel">O</span>LIO</span></a>
+        <a class="BurgerLink" href="./" aria-label="Contact"><span class="BurgerLinkText" aria-hidden="true"><span class="fontPixel">C</span><span class="fontItalic">O</span>NT<span class="fontPixel">A</span>CT</span></a>
+      </nav>
+      <div class="SocialWrapper BurgerSocials">
+        <a class="SocialButton" href="https://instagram.com/samwalkerdesign" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg class="SocialLogos" viewBox="0 0 85 85" aria-hidden="true"><use href="../SVG/InstagramLogo.svg#Layer_2"></use></svg></a>
+        <a class="SocialButton" href="https://www.linkedin.com/in/samwalkerdesign/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg class="SocialLogos" viewBox="0 0 80 80" aria-hidden="true"><use href="../SVG/LinkedInLogo.svg#Layer_2"></use></svg></a>
+        <a class="SocialButton" href="mailto:samwdsn@gmail.com" aria-label="Email"><svg class="SocialLogos" viewBox="0 0 80 65" aria-hidden="true"><use href="../SVG/Email.svg#Layer_2"></use></svg></a>
+        <div class="SocialButton"><svg class="SocialLogos" viewBox="0 0 80 80" aria-hidden="true"><use href="../SVG/Location.svg#Layer_2"></use></svg><span class="FooterMCR"><span class="locationFull">Manchester</span><span class="locationShort">MCR</span>, UK</span></div>
+      </div>
+    </dialog>
+    <main>
+      <section class="contactSection" aria-label="Get in touch">
+        <div class="contactLeft">
+          <h1 class="contactWords" aria-label="Get in touch">
+            <span class="contactWord" aria-hidden="true"><span class="fontPixel">G</span>ET</span>
+            <span class="contactWord" aria-hidden="true">I<span class="fontPixel">N</span></span>
+            <span class="contactWord contactTouch" aria-hidden="true">T<span class="fontItalic">O</span>U<span class="fontPixel">C</span>H</span>
+          </h1>
+          <div class="SocialWrapper">
+            <a class="SocialButton" href="https://instagram.com/samwalkerdesign" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <svg class="SocialLogos" viewBox="0 0 85 85" aria-hidden="true">
+                <use href="../SVG/InstagramLogo.svg#Layer_2"></use>
+              </svg>
+            </a>
+            <a class="SocialButton" href="https://www.linkedin.com/in/samwalkerdesign/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <svg class="SocialLogos" viewBox="0 0 80 80" aria-hidden="true">
+                <use href="../SVG/LinkedInLogo.svg#Layer_2"></use>
+              </svg>
+            </a>
+            <a class="SocialButton" href="mailto:samwdsn@gmail.com" aria-label="Email">
+              <svg class="SocialLogos" viewBox="0 0 80 65" aria-hidden="true">
+                <use href="../SVG/Email.svg#Layer_2"></use>
+              </svg>
+            </a>
+            <div class="SocialButton">
+              <svg class="SocialLogos" viewBox="0 0 80 80" aria-hidden="true">
+                <use href="../SVG/Location.svg#Layer_2"></use>
+              </svg>
+              <span class="FooterMCR"><span class="locationFull">Manchester</span><span class="locationShort">MCR</span>, UK</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="contactRight">
+          <form target="_blank" action="https://formsubmit.co/samwdsn@gmail.com" method="POST">
+            <label class="VisuallyHidden" for="contact-name">Name</label>
+            <input id="contact-name" class="FormField" name="name" type="text" placeholder="Name" autocomplete="name" required />
+            <label class="VisuallyHidden" for="contact-email">Email</label>
+            <input id="contact-email" class="FormField" name="email" type="email" placeholder="Email" autocomplete="email" required />
+            <label class="VisuallyHidden" for="contact-message">Message</label>
+            <textarea id="contact-message" class="FormField" name="message" placeholder="Message" required></textarea>
+            <button class="SendButton" type="submit">Submit</button>
+          </form>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
