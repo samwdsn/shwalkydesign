@@ -2,8 +2,10 @@
    Prerequisites — shared setup, navigation and resizing
    ========================================================================== */
 
-// TEMPORARY: blue highlights confirm the native-touch-scroll test JS has loaded.
-document.documentElement.style.setProperty("--highlight", "#0040ff");
+// TEMPORARY: green highlights confirm the scroll-frame-switching test has loaded.
+document.documentElement.style.setProperty("--highlight", "#00c853");
+// Keep load-time frame sequences, but disable frame changes caused by scrolling.
+const enableSplashScrollFrames = false;
 
 document.querySelectorAll(".currentYear").forEach((year) => {
   year.textContent = new Date().getFullYear();
@@ -81,10 +83,7 @@ if (typeof ScrollTrigger !== "undefined") {
 }
 
 const touchOnlyViewport = window.matchMedia("(hover: none) and (pointer: coarse)");
-// Keep native scrolling on touch devices; retain Lenis for desktop input.
-const lenis = !touchOnlyViewport.matches && typeof Lenis !== "undefined"
-  ? new Lenis()
-  : null;
+const lenis = typeof Lenis !== "undefined" ? new Lenis() : null;
 
 if (lenis) {
   lenis.on("scroll", ScrollTrigger.update);
@@ -247,6 +246,7 @@ function initHomeSplash() {
   let frameReset;
 
   function updateScrollFrames(self) {
+    if (!enableSplashScrollFrames) return;
     const sequenceIndex = Math.min(
       svgFrameSequence.length - 1,
       Math.floor(self.progress * svgFrameSequence.length),
@@ -788,6 +788,7 @@ function initPortfolioPage() {
     end: () => `top top-=${innerWidth <= 768 ? 1400 : 400}`,
     invalidateOnRefresh: true,
     onUpdate: (self) => {
+      if (!enableSplashScrollFrames) return;
       const scroll = self.scroll();
       if (scroll === portfolioLastScroll) return;
       portfolioLastScroll = scroll;
